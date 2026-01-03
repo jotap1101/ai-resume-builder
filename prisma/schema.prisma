@@ -12,3 +12,71 @@ generator client {
 datasource db {
   provider = "postgresql"
 }
+
+model Resume {
+  id          String   @id @default(cuid()) @map("id")
+  userId      String   @map("user_id")
+  title       String?  @map("title")
+  description String?  @map("description")
+  photoUrl    String?  @map("photo_url")
+  colorHex    String   @default("#000000") @map("color_hex")
+  borderStyle String   @default("squircle") @map("border_style")
+  summary     String?  @map("summary")
+  firstName   String?  @map("first_name")
+  lastName    String?  @map("last_name")
+  jobTitle    String?  @map("job_title")
+  city        String?  @map("city")
+  country     String?  @map("country")
+  phone       String?  @map("phone")
+  email       String?  @map("email")
+  // workExperiences WorkExperience[]
+  // educations      Education[]
+  // skills          String[]
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+
+  @@map("resumes")
+}
+
+// model WorkExperience {
+//   id          String    @id @default(cuid()) @map("id")
+//   position    String?   @map("position")
+//   company     String?   @map("company")
+//   startDate   DateTime? @map("start_date")
+//   endDate     DateTime? @map("end_date")
+//   description String?   @map("description")
+//   resumeId    String    @map("resume_id")
+//   resume      Resume    @relation(fields: [resumeId], references: [id], onDelete: Cascade)
+//   createdAt   DateTime  @default(now()) @map("created_at")
+//   updatedAt   DateTime  @updatedAt @map("updated_at")
+
+//   @@map("work_experiences")
+// }
+
+// model Education {
+//   id        String    @id @default(cuid()) @map("id")
+//   degree    String?   @map("degree")
+//   school    String?   @map("school")
+//   startDate DateTime? @map("start_date")
+//   endDate   DateTime? @map("end_date")
+//   resumeId  String    @map("resume_id")
+//   resume    Resume    @relation(fields: [resumeId], references: [id], onDelete: Cascade)
+//   createdAt DateTime  @default(now()) @map("created_at")
+//   updatedAt DateTime  @updatedAt @map("updated_at")
+
+//   @@map("educations")
+// }
+
+// model UserSubscription {
+//   id                      String   @id @default(cuid()) @map("id")
+//   userId                  String   @unique @map("user_id")
+//   stripeCustomerId        String   @unique @map("stripe_customer_id")
+//   stripeSubscriptionId    String   @unique @map("stripe_subscription_id")
+//   stripePriceId           String   @map("stripe_price_id")
+//   stripeCurrentPeriodEnd  DateTime @map("stripe_current_period_end")
+//   stripeCancelAtPeriodEnd Boolean  @default(false) @map("stripe_cancel_at_period_end")
+//   createdAt               DateTime @default(now()) @map("created_at")
+//   updatedAt               DateTime @updatedAt @map("updated_at")
+
+//   @@map("user_subscriptions")
+// }
