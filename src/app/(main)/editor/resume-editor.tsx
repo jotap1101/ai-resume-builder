@@ -1,6 +1,6 @@
 import Link from "next/link";
-import React from "react";
 
+import { GeneralInfoForm } from "@/app/(main)/editor/forms/general-info-form";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 
@@ -17,7 +17,9 @@ export function ResumeEditor() {
       <main className="relative grow">
         <div className="absolute inset-0 flex w-full flex-col md:flex-row">
           {/* Left */}
-          <div className="w-full p-4 md:w-1/2">left</div>
+          <div className="w-full p-4 md:w-1/2">
+            <GeneralInfoForm />
+          </div>
 
           {/* Separator Mobile (Horizontal) */}
           <Separator orientation="horizontal" className="block md:hidden" />
