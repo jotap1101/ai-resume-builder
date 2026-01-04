@@ -9,7 +9,7 @@ import { useTheme } from "next-themes";
 
 import { ModeToggle } from "@/components/mode-toggle";
 
-export default function Navbar() {
+export function Navbar() {
   const { theme } = useTheme();
 
   return (

@@ -1,4 +1,4 @@
-import Navbar from "@/app/(main)/navbar";
+import { Navbar } from "@/app/(main)/navbar";
 
 export default async function Layout({
   children,
