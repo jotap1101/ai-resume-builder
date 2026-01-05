@@ -1,10 +1,26 @@
-import Link from "next/link";
+"use client";
 
-import { GeneralInfoForm } from "@/app/(main)/editor/forms/general-info-form";
-import { Button } from "@/components/ui/button";
+import { useSearchParams } from "next/navigation";
+
+import { BreadcrumbDemo } from "@/app/(main)/editor/breadcrumb-demo";
+import { steps } from "@/app/(main)/editor/steps";
 import { Separator } from "@/components/ui/separator";
 
 export function ResumeEditor() {
+  const searchParams = useSearchParams();
+  const currentStep = searchParams.get("step") || steps[0].key;
+
+  function setStep(stepKey: string) {
+    const params = new URLSearchParams(searchParams.toString());
+
+    params.set("step", stepKey);
+    window.history.pushState(null, "", `?${params.toString()}`);
+  }
+
+  const FormComponent = steps.find(
+    (step) => step.key === currentStep,
+  )?.component;
+
   return (
     <div className="flex grow flex-col">
       <header className="space-y-1.5 border-b px-3 py-5 text-center">
@@ -17,8 +33,12 @@ export function ResumeEditor() {
       <main className="relative grow">
         <div className="absolute inset-0 flex w-full flex-col md:flex-row">
           {/* Left */}
-          <div className="w-full p-4 md:w-1/2">
-            <GeneralInfoForm />
+          <div className="w-full space-y-6 overflow-y-auto p-3 md:w-1/2">
+            <BreadcrumbDemo
+              currentStep={currentStep}
+              setCurrentStep={setStep}
+            />
+            {FormComponent && <FormComponent />}
           </div>
 
           {/* Separator Mobile (Horizontal) */}
@@ -28,23 +48,11 @@ export function ResumeEditor() {
           <Separator orientation="vertical" className="hidden md:block" />
 
           {/* Right */}
-          <div className="w-full p-4 md:w-1/2">right</div>
+          <div className="w-full space-y-6 overflow-y-auto p-3 md:w-1/2">
+            right
+          </div>
         </div>
       </main>
-      <footer className="w-full border-t px-3 py-5">
-        <div className="mx-auto flex max-w-7xl flex-wrap justify-between gap-3">
-          <div className="flex items-center gap-3">
-            <Button variant="secondary">Previous step</Button>
-            <Button>Next step</Button>
-          </div>
-          <div className="flex items-center gap-3">
-            <Button variant="secondary" asChild>
-              <Link href="/resumes">Close</Link>
-            </Button>
-            <p className="text-muted-foreground opacity-0">Saving...</p>
-          </div>
-        </div>
-      </footer>
     </div>
   );
 }
