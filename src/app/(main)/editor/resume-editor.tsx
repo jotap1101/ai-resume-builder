@@ -3,6 +3,7 @@
 import { useSearchParams } from "next/navigation";
 
 import { BreadcrumbDemo } from "@/app/(main)/editor/breadcrumb-demo";
+import { Footer } from "@/app/(main)/editor/footer";
 import { steps } from "@/app/(main)/editor/steps";
 import { Separator } from "@/components/ui/separator";
 
@@ -10,7 +11,7 @@ export function ResumeEditor() {
   const searchParams = useSearchParams();
   const currentStep = searchParams.get("step") || steps[0].key;
 
-  function setStep(stepKey: string) {
+  function setCurrentStep(stepKey: string) {
     const params = new URLSearchParams(searchParams.toString());
 
     params.set("step", stepKey);
@@ -36,7 +37,7 @@ export function ResumeEditor() {
           <div className="w-full space-y-6 overflow-y-auto p-3 md:w-1/2">
             <BreadcrumbDemo
               currentStep={currentStep}
-              setCurrentStep={setStep}
+              setCurrentStep={setCurrentStep}
             />
             {FormComponent && <FormComponent />}
           </div>
@@ -53,6 +54,7 @@ export function ResumeEditor() {
           </div>
         </div>
       </main>
+      <Footer currentStep={currentStep} setCurrentStep={setCurrentStep} />
     </div>
   );
 }
