@@ -1,6 +1,7 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 
 import {
@@ -13,16 +14,40 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { EditorFormProps } from "@/lib/types";
 import { generalInfoSchema, GeneralInfoValues } from "@/lib/validation";
 
-export function GeneralInfoForm() {
+export function GeneralInfoForm({
+  resumeData,
+  setResumeData,
+}: EditorFormProps) {
   const form = useForm<GeneralInfoValues>({
     resolver: zodResolver(generalInfoSchema),
+    // mode: "onChange",
     defaultValues: {
-      title: "",
-      description: "",
+      title: resumeData.title || "",
+      description: resumeData.description || "",
     },
   });
+
+  // const { watch } = form;
+
+  useEffect(() => {
+    const { unsubscribe } = form.watch(async (values) => {
+      const isValid = await form.trigger();
+
+      if (!isValid) {
+        return;
+      }
+
+      setResumeData({
+        ...resumeData,
+        ...values,
+      });
+    });
+
+    return unsubscribe;
+  }, [form, resumeData, setResumeData]);
 
   return (
     <div className="mx-auto max-w-xl space-y-6">
@@ -41,11 +66,13 @@ export function GeneralInfoForm() {
               <FormItem>
                 <FormLabel>Title</FormLabel>
                 <FormControl>
-                  <Input placeholder="Software Engineer Resume" {...field} autoFocus />
+                  <Input
+                    placeholder="Software Engineer Resume"
+                    {...field}
+                    autoFocus
+                  />
                 </FormControl>
-                <FormDescription>
-                  The title of your resume.
-                </FormDescription>
+                <FormDescription>The title of your resume.</FormDescription>
                 <FormMessage />
               </FormItem>
             )}
@@ -57,7 +84,10 @@ export function GeneralInfoForm() {
               <FormItem>
                 <FormLabel>Description</FormLabel>
                 <FormControl>
-                  <Input placeholder="A short description about resume" {...field} />
+                  <Input
+                    placeholder="A short description about resume"
+                    {...field}
+                  />
                 </FormControl>
                 <FormDescription>
                   A brief description to help you identify this resume.

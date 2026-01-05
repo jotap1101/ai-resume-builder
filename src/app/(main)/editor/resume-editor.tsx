@@ -1,15 +1,22 @@
 "use client";
 
 import { useSearchParams } from "next/navigation";
+import { useState } from "react";
 
 import { BreadcrumbDemo } from "@/app/(main)/editor/breadcrumb-demo";
 import { Footer } from "@/app/(main)/editor/footer";
 import { steps } from "@/app/(main)/editor/steps";
 import { Separator } from "@/components/ui/separator";
+import { ResumeValues } from "@/lib/validation";
 
 export function ResumeEditor() {
   const searchParams = useSearchParams();
+
   const currentStep = searchParams.get("step") || steps[0].key;
+
+  const [resumeData, setResumeData] = useState<ResumeValues>(
+    {} as ResumeValues,
+  );
 
   function setCurrentStep(stepKey: string) {
     const params = new URLSearchParams(searchParams.toString());
@@ -39,7 +46,12 @@ export function ResumeEditor() {
               currentStep={currentStep}
               setCurrentStep={setCurrentStep}
             />
-            {FormComponent && <FormComponent />}
+            {FormComponent && (
+              <FormComponent
+                resumeData={resumeData}
+                setResumeData={setResumeData}
+              />
+            )}
           </div>
 
           {/* Separator Mobile (Horizontal) */}

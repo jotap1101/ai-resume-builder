@@ -14,34 +14,46 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { EditorFormProps } from "@/lib/types";
 import { personalInfoSchema, PersonalInfoValues } from "@/lib/validation";
 
-export function PersonalInfoForm() {
+export function PersonalInfoForm({
+  resumeData,
+  setResumeData,
+}: EditorFormProps) {
   const form = useForm<PersonalInfoValues>({
     resolver: zodResolver(personalInfoSchema),
-    mode: "onChange",
+    // mode: "onChange",
     defaultValues: {
-      photo: undefined,
-      firstName: "",
-      lastName: "",
-      jobTitle: "",
-      city: "",
-      country: "",
-      phone: "",
-      email: "",
+      photo: resumeData.photo instanceof File ? resumeData.photo : undefined,
+      firstName: resumeData.firstName || "",
+      lastName: resumeData.lastName || "",
+      jobTitle: resumeData.jobTitle || "",
+      city: resumeData.city || "",
+      country: resumeData.country || "",
+      phone: resumeData.phone || "",
+      email: resumeData.email || "",
     },
   });
 
-  const { watch } = form;
+  // const { watch } = form;
 
   useEffect(() => {
-    const subscription = watch((values, { name, type }) => {
-      if (type === "change") {
-        console.log("Form values changed:", values);
+    const { unsubscribe } = form.watch(async (values) => {
+      const isValid = await form.trigger();
+
+      if (!isValid) {
+        return;
       }
+
+      setResumeData({
+        ...resumeData,
+        ...values,
+      });
     });
-    return () => subscription.unsubscribe();
-  }, [watch]);
+
+    return unsubscribe;
+  }, [form, resumeData, setResumeData]);
 
   return (
     <div className="mx-auto max-w-xl space-y-6">
