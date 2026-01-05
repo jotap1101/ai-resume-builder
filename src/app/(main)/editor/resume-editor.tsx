@@ -62,7 +62,7 @@ export function ResumeEditor() {
 
           {/* Right */}
           <div className="w-full space-y-6 overflow-y-auto p-3 md:w-1/2">
-            right
+            <pre>{JSON.stringify(resumeData, null, 2)}</pre>
           </div>
         </div>
       </main>
