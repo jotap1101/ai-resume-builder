@@ -13,7 +13,13 @@ export function Navbar() {
   const { theme } = useTheme();
 
   return (
-    <header className="shadow-sm">
+    <header
+      className="shadow-sm"
+      style={{
+        boxShadow:
+          theme === "dark" ? "0 1px 2px rgba(255,255,255,0.06)" : undefined,
+      }}
+    >
       <div className="mx-auto flex max-w-7xl items-center justify-between gap-3 p-3">
         <Link href="/resumes" className="flex items-center gap-2">
           <Image

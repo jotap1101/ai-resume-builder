@@ -41,10 +41,10 @@ export function GeneralInfoForm() {
               <FormItem>
                 <FormLabel>Title</FormLabel>
                 <FormControl>
-                  <Input placeholder="shadcn" {...field} autoFocus />
+                  <Input placeholder="Software Engineer Resume" {...field} autoFocus />
                 </FormControl>
                 <FormDescription>
-                  Your professional title or role.
+                  The title of your resume.
                 </FormDescription>
                 <FormMessage />
               </FormItem>
@@ -57,10 +57,10 @@ export function GeneralInfoForm() {
               <FormItem>
                 <FormLabel>Description</FormLabel>
                 <FormControl>
-                  <Input placeholder="Software Engineer" {...field} />
+                  <Input placeholder="A short description about resume" {...field} />
                 </FormControl>
                 <FormDescription>
-                  A short description about you.
+                  A brief description to help you identify this resume.
                 </FormDescription>
                 <FormMessage />
               </FormItem>
