@@ -1,0 +1,195 @@
+"use client";
+
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useEffect } from "react";
+import { useForm } from "react-hook-form";
+
+import {
+  Form,
+  FormControl,
+  FormDescription,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { personalInfoSchema, PersonalInfoValues } from "@/lib/validation";
+
+export function PersonalInfoForm() {
+  const form = useForm<PersonalInfoValues>({
+    resolver: zodResolver(personalInfoSchema),
+    mode: "onChange",
+    defaultValues: {
+      photo: undefined,
+      firstName: "",
+      lastName: "",
+      jobTitle: "",
+      city: "",
+      country: "",
+      phone: "",
+      email: "",
+    },
+  });
+
+  const { watch } = form;
+
+  useEffect(() => {
+    const subscription = watch((values, { name, type }) => {
+      if (type === "change") {
+        console.log("Form values changed:", values);
+      }
+    });
+    return () => subscription.unsubscribe();
+  }, [watch]);
+
+  return (
+    <div className="mx-auto max-w-xl space-y-6">
+      <div className="space-y-1.5 text-center">
+        <h2 className="text-2xl font-semibold">Personal info</h2>
+        <p className="text-muted-foreground text-sm">Tell us about yourself.</p>
+      </div>
+      <Form {...form}>
+        <form className="space-y-3">
+          <FormField
+            control={form.control}
+            name="photo"
+            // eslint-disable-next-line @typescript-eslint/no-unused-vars
+            render={({ field: { value, ...fieldValues } }) => (
+              <FormItem>
+                <FormLabel>Your photo</FormLabel>
+                <FormControl>
+                  <Input
+                    type="file"
+                    accept="image/*"
+                    placeholder="Upload your photo"
+                    {...fieldValues}
+                    onChange={(event) => {
+                      const file = event.target.files?.[0];
+                      fieldValues.onChange(file);
+                    }}
+                    autoFocus
+                  />
+                </FormControl>
+                <FormDescription>
+                  Upload a professional photo (max 5MB).
+                </FormDescription>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <div className="grid grid-cols-2 gap-3">
+            <FormField
+              control={form.control}
+              name="firstName"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>First name</FormLabel>
+                  <FormControl>
+                    <Input placeholder="John" {...field} />
+                  </FormControl>
+                  <FormDescription>Your first name.</FormDescription>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="lastName"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Last name</FormLabel>
+                  <FormControl>
+                    <Input placeholder="Doe" {...field} />
+                  </FormControl>
+                  <FormDescription>Your last name.</FormDescription>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </div>
+          <FormField
+            control={form.control}
+            name="jobTitle"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Job title</FormLabel>
+                <FormControl>
+                  <Input placeholder="Software Engineer" {...field} />
+                </FormControl>
+                <FormDescription>Your current job title.</FormDescription>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <div className="grid grid-cols-2 gap-3">
+            <FormField
+              control={form.control}
+              name="city"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>City</FormLabel>
+                  <FormControl>
+                    <Input placeholder="New York" {...field} />
+                  </FormControl>
+                  <FormDescription>Your city of residence.</FormDescription>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="country"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Country</FormLabel>
+                  <FormControl>
+                    <Input placeholder="USA" {...field} />
+                  </FormControl>
+                  <FormDescription>Your country of residence.</FormDescription>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </div>
+          <FormField
+            control={form.control}
+            name="phone"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Phone</FormLabel>
+                <FormControl>
+                  <Input
+                    type="tel"
+                    placeholder="+99 (99) 99999-9999"
+                    {...field}
+                  />
+                </FormControl>
+                <FormDescription>Your contact phone number.</FormDescription>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="email"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Email</FormLabel>
+                <FormControl>
+                  <Input
+                    type="email"
+                    placeholder="john.doe@example.com"
+                    {...field}
+                  />
+                </FormControl>
+                <FormDescription>Your contact email address.</FormDescription>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        </form>
+      </Form>
+    </div>
+  );
+}
