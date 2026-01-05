@@ -23,14 +23,11 @@ export function GeneralInfoForm({
 }: EditorFormProps) {
   const form = useForm<GeneralInfoValues>({
     resolver: zodResolver(generalInfoSchema),
-    // mode: "onChange",
     defaultValues: {
       title: resumeData.title || "",
       description: resumeData.description || "",
     },
   });
-
-  // const { watch } = form;
 
   useEffect(() => {
     const { unsubscribe } = form.watch(async (values) => {

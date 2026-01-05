@@ -23,7 +23,6 @@ export function PersonalInfoForm({
 }: EditorFormProps) {
   const form = useForm<PersonalInfoValues>({
     resolver: zodResolver(personalInfoSchema),
-    // mode: "onChange",
     defaultValues: {
       photo: resumeData.photo instanceof File ? resumeData.photo : undefined,
       firstName: resumeData.firstName || "",
@@ -35,8 +34,6 @@ export function PersonalInfoForm({
       email: resumeData.email || "",
     },
   });
-
-  // const { watch } = form;
 
   useEffect(() => {
     const { unsubscribe } = form.watch(async (values) => {
