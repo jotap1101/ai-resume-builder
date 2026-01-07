@@ -30,7 +30,7 @@ model Resume {
   phone           String?          @map("phone")
   email           String?          @map("email")
   workExperiences WorkExperience[]
-  // educations      Education[]
+  educations      Education[]
   // skills          String[]
   createdAt       DateTime         @default(now()) @map("created_at")
   updatedAt       DateTime         @updatedAt @map("updated_at")
@@ -53,19 +53,19 @@ model WorkExperience {
   @@map("work_experiences")
 }
 
-// model Education {
-//   id        String    @id @default(cuid()) @map("id")
-//   degree    String?   @map("degree")
-//   school    String?   @map("school")
-//   startDate DateTime? @map("start_date")
-//   endDate   DateTime? @map("end_date")
-//   resumeId  String    @map("resume_id")
-//   resume    Resume    @relation(fields: [resumeId], references: [id], onDelete: Cascade)
-//   createdAt DateTime  @default(now()) @map("created_at")
-//   updatedAt DateTime  @updatedAt @map("updated_at")
+model Education {
+  id        String    @id @default(cuid()) @map("id")
+  degree    String?   @map("degree")
+  school    String?   @map("school")
+  startDate DateTime? @map("start_date")
+  endDate   DateTime? @map("end_date")
+  resumeId  String    @map("resume_id")
+  resume    Resume    @relation(fields: [resumeId], references: [id], onDelete: Cascade)
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime  @updatedAt @map("updated_at")
 
-//   @@map("educations")
-// }
+  @@map("educations")
+}
 
 // model UserSubscription {
 //   id                      String   @id @default(cuid()) @map("id")
