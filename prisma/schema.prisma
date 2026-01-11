@@ -29,9 +29,9 @@ model Resume {
   country         String?          @map("country")
   phone           String?          @map("phone")
   email           String?          @map("email")
+  skills          String[]         @default([]) @map("skills")
   workExperiences WorkExperience[]
   educations      Education[]
-  // skills          String[]
   createdAt       DateTime         @default(now()) @map("created_at")
   updatedAt       DateTime         @updatedAt @map("updated_at")
 
