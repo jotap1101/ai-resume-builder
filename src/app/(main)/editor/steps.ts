@@ -2,6 +2,7 @@ import { EducationForm } from "@/app/(main)/editor/forms/education-form";
 import { GeneralInfoForm } from "@/app/(main)/editor/forms/general-info-form";
 import { PersonalInfoForm } from "@/app/(main)/editor/forms/personal-info-form";
 import { SkillForm } from "@/app/(main)/editor/forms/skill-form";
+import { SummaryForm } from "@/app/(main)/editor/forms/summary-form";
 import { WorkExperienceForm } from "@/app/(main)/editor/forms/work-experience-form";
 import { EditorFormProps } from "@/lib/types";
 
@@ -34,5 +35,10 @@ export const steps: {
     title: "Skills",
     component: SkillForm,
     key: "skills",
+  },
+  {
+    title: "Summary",
+    component: SummaryForm,
+    key: "summary",
   },
 ];
