@@ -1,3 +1,4 @@
+import { EducationForm } from "@/app/(main)/editor/forms/education-form";
 import { GeneralInfoForm } from "@/app/(main)/editor/forms/general-info-form";
 import { PersonalInfoForm } from "@/app/(main)/editor/forms/personal-info-form";
 import { WorkExperienceForm } from "@/app/(main)/editor/forms/work-experience-form";
@@ -21,5 +22,10 @@ export const steps: {
     title: "Work experience",
     component: WorkExperienceForm,
     key: "work-experience",
+  },
+  {
+    title: "Education",
+    component: EducationForm,
+    key: "education",
   },
 ];
