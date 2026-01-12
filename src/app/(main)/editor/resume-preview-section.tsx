@@ -13,7 +13,7 @@ export function ResumePreviewSection({
   setResumeData,
 }: ResumePreviewSectionProps) {
   return (
-    <div className="relative h-1/2 w-full space-y-6 overflow-y-auto md:h-full md:w-1/2">
+    <div className="relative max-h-screen w-full space-y-6 overflow-y-auto md:max-h-none md:min-h-0 md:w-1/2">
       <div className="absolute top-2 left-2 z-10 flex flex-none flex-col gap-3 sm:top-3 sm:left-3 lg:top-4 lg:left-4">
         <ColorPicker
           color={resumeData.colorHex}
