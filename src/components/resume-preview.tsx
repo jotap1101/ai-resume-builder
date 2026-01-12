@@ -168,7 +168,10 @@ function WorkExperienceSection({ resumeData }: ResumeSectionProps) {
         </p>
         {workExperiencesNotEmpty.map((experience, index) => (
           <div key={index} className="break-inside-avoid space-y-1">
-            <div className="flex items-center justify-between text-sm font-semibold">
+            <div
+              className="flex items-center justify-between text-sm font-semibold"
+              style={{ color: colorHex }}
+            >
               <span>{experience.position}</span>
               {experience.startDate && (
                 <span>
@@ -210,7 +213,10 @@ function EducationSection({ resumeData }: ResumeSectionProps) {
         </p>
         {educationsNotEmpty.map((education, index) => (
           <div key={index} className="break-inside-avoid space-y-1">
-            <div className="flex items-center justify-between text-sm font-semibold">
+            <div
+              className="flex items-center justify-between text-sm font-semibold"
+              style={{ color: colorHex }}
+            >
               <span>{education.degree}</span>
               {education.startDate && (
                 <span>
@@ -246,6 +252,9 @@ function SkillsSection({ resumeData }: ResumeSectionProps) {
             <Badge
               key={index}
               className="rounded-md bg-black text-white hover:bg-black"
+              style={{
+                backgroundColor: colorHex,
+              }}
             >
               {skill}
             </Badge>
