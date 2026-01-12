@@ -41,7 +41,7 @@ export function Footer({ currentStep, setCurrentStep }: FooterProps) {
           <Button variant="secondary" asChild>
             <Link href="/resumes">Close</Link>
           </Button>
-          <p className="text-muted-foreground opacity-0">Saving...</p>
+          <p className="text-muted-foreground hidden">Saving...</p>
         </div>
       </div>
     </footer>

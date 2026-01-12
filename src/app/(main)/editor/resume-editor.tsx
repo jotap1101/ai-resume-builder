@@ -43,7 +43,7 @@ export function ResumeEditor() {
       <main className="relative grow">
         <div className="absolute inset-0 flex w-full flex-col md:flex-row">
           {/* Left */}
-          <div className="min-h-100 w-full space-y-6 overflow-y-auto p-3 md:min-h-0 md:w-1/2">
+          <div className="h-1/2 w-full space-y-6 overflow-y-auto p-3 md:h-full md:w-1/2">
             <BreadcrumbDemo
               currentStep={currentStep}
               setCurrentStep={setCurrentStep}
