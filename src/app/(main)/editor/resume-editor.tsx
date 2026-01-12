@@ -9,6 +9,8 @@ import { steps } from "@/app/(main)/editor/steps";
 import { Separator } from "@/components/ui/separator";
 import { ResumeValues } from "@/lib/validation";
 
+import { ResumePreviewSection } from "./resume-preview-section";
+
 export function ResumeEditor() {
   const searchParams = useSearchParams();
 
@@ -41,7 +43,7 @@ export function ResumeEditor() {
       <main className="relative grow">
         <div className="absolute inset-0 flex w-full flex-col md:flex-row">
           {/* Left */}
-          <div className="w-full space-y-6 overflow-y-auto p-3 md:w-1/2">
+          <div className="min-h-100 w-full space-y-6 overflow-y-auto p-3 md:min-h-0 md:w-1/2">
             <BreadcrumbDemo
               currentStep={currentStep}
               setCurrentStep={setCurrentStep}
@@ -61,9 +63,10 @@ export function ResumeEditor() {
           <Separator orientation="vertical" className="hidden md:block" />
 
           {/* Right */}
-          <div className="w-full space-y-6 overflow-y-auto p-3 md:w-1/2">
-            <pre>{JSON.stringify(resumeData, null, 2)}</pre>
-          </div>
+          <ResumePreviewSection
+            resumeData={resumeData}
+            setResumeData={setResumeData}
+          />
         </div>
       </main>
       <Footer currentStep={currentStep} setCurrentStep={setCurrentStep} />
