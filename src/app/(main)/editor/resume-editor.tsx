@@ -40,10 +40,10 @@ export function ResumeEditor() {
           saved automatically.
         </p>
       </header>
-      <main className="relative flex flex-col md:grow">
-        <div className="flex w-full flex-col md:absolute md:inset-0 md:flex-row">
+      <main className="relative grow">
+        <div className="absolute inset-0 flex w-full flex-col md:flex-row">
           {/* Left */}
-          <div className="max-h-screen w-full space-y-6 overflow-y-auto p-3 md:max-h-none md:min-h-0 md:w-1/2">
+          <div className="h-1/2 w-full space-y-6 overflow-y-auto p-3 md:h-full md:w-1/2">
             <BreadcrumbDemo
               currentStep={currentStep}
               setCurrentStep={setCurrentStep}
