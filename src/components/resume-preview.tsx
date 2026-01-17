@@ -2,6 +2,7 @@ import { formatDate } from "date-fns";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 
+import { BorderStyles } from "@/app/(main)/editor/border-style-button";
 import { Badge } from "@/components/ui/badge";
 import useDimensions from "@/hooks/use-dimensions";
 import { cn } from "@/lib/utils";
@@ -62,18 +63,25 @@ function PersonalInfoSection({ resumeData }: ResumeSectionProps) {
   const [photoSrc, setPhotoSrc] = useState(photo instanceof File ? "" : photo);
 
   useEffect(() => {
+    if (photo === null) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      setPhotoSrc("");
+      return;
+    }
+
     const objectUrl = photo instanceof File ? URL.createObjectURL(photo) : "";
 
     if (objectUrl) {
-      // eslint-disable-next-line react-hooks/set-state-in-effect
       setPhotoSrc(objectUrl);
-
-      if (photo === null) {
-        setPhotoSrc("");
-      }
+    } else if (typeof photo === "string") {
+      setPhotoSrc(photo);
     }
 
-    return () => URL.revokeObjectURL(objectUrl);
+    return () => {
+      if (objectUrl) {
+        URL.revokeObjectURL(objectUrl);
+      }
+    };
   }, [photo]);
 
   return (
@@ -85,6 +93,14 @@ function PersonalInfoSection({ resumeData }: ResumeSectionProps) {
           width={100}
           height={100}
           className="aspect-square object-cover"
+          style={{
+            borderRadius:
+              borderStyle === BorderStyles.SQUARE
+                ? "0px"
+                : borderStyle === BorderStyles.CIRCLE
+                  ? "9999px"
+                  : "10%",
+          }}
         />
       )}
       <div className="space-y-2.5">
@@ -236,7 +252,7 @@ function EducationSection({ resumeData }: ResumeSectionProps) {
 }
 
 function SkillsSection({ resumeData }: ResumeSectionProps) {
-  const { skills, colorHex } = resumeData;
+  const { skills, colorHex, borderStyle } = resumeData;
 
   if (!skills?.length) return null;
 
@@ -254,6 +270,12 @@ function SkillsSection({ resumeData }: ResumeSectionProps) {
               className="rounded-md bg-black text-white hover:bg-black"
               style={{
                 backgroundColor: colorHex,
+                borderRadius:
+                  borderStyle === BorderStyles.SQUARE
+                    ? "0px"
+                    : borderStyle === BorderStyles.CIRCLE
+                      ? "9999px"
+                      : "8px",
               }}
             >
               {skill}

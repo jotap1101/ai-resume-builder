@@ -30,6 +30,7 @@ export function WorkExperienceForm({
   });
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/incompatible-library
     const { unsubscribe } = form.watch(async (values) => {
       const isValid = await form.trigger();
 

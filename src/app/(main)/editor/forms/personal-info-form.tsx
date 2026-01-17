@@ -1,9 +1,10 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { useForm } from "react-hook-form";
 
+import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
@@ -36,6 +37,7 @@ export function PersonalInfoForm({
   });
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/incompatible-library
     const { unsubscribe } = form.watch(async (values) => {
       const isValid = await form.trigger();
 
@@ -52,6 +54,8 @@ export function PersonalInfoForm({
     return unsubscribe;
   }, [form, resumeData, setResumeData]);
 
+  const photoInputRef = useRef<HTMLInputElement>(null);
+
   return (
     <div className="mx-auto max-w-xl space-y-6">
       <div className="space-y-1.5 text-center">
@@ -67,19 +71,32 @@ export function PersonalInfoForm({
             render={({ field: { value, ...fieldValues } }) => (
               <FormItem>
                 <FormLabel>Your photo</FormLabel>
-                <FormControl>
-                  <Input
-                    type="file"
-                    accept="image/*"
-                    placeholder="Upload your photo"
-                    {...fieldValues}
-                    onChange={(event) => {
-                      const file = event.target.files?.[0];
-                      fieldValues.onChange(file);
+                <div className="flex items-center gap-2">
+                  <FormControl>
+                    <Input
+                      {...fieldValues}
+                      type="file"
+                      accept="image/*"
+                      onChange={(e) => {
+                        const file = e.target.files?.[0];
+                        fieldValues.onChange(file);
+                      }}
+                      ref={photoInputRef}
+                    />
+                  </FormControl>
+                  <Button
+                    variant="secondary"
+                    type="button"
+                    onClick={() => {
+                      fieldValues.onChange(null);
+                      if (photoInputRef.current) {
+                        photoInputRef.current.value = "";
+                      }
                     }}
-                    autoFocus
-                  />
-                </FormControl>
+                  >
+                    Remove
+                  </Button>
+                </div>
                 <FormDescription>
                   Upload a professional photo (max 5MB).
                 </FormDescription>
