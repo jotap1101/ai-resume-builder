@@ -1,15 +1,25 @@
+import { FileUserIcon, PenLineIcon } from "lucide-react";
 import Link from "next/link";
 
+import { steps } from "@/app/(main)/editor/steps";
 import { Button } from "@/components/ui/button";
-
-import { steps } from "./steps";
+import { cn } from "@/lib/utils";
 
 interface FooterProps {
   currentStep: string;
   setCurrentStep: (step: string) => void;
+  showSmResumePreview: boolean;
+  setShowSmResumePreview: (show: boolean) => void;
+  isSaving: boolean;
 }
 
-export function Footer({ currentStep, setCurrentStep }: FooterProps) {
+export function Footer({
+  currentStep,
+  setCurrentStep,
+  showSmResumePreview,
+  setShowSmResumePreview,
+  isSaving,
+}: FooterProps) {
   const previousStep = steps.find(
     (_, index) => steps[index + 1]?.key === currentStep,
   )?.key;
@@ -28,22 +38,40 @@ export function Footer({ currentStep, setCurrentStep }: FooterProps) {
             }
             disabled={!previousStep}
           >
-            Previous step
+            Previous
           </Button>
           <Button
             onClick={nextStep ? () => setCurrentStep(nextStep) : undefined}
             disabled={!nextStep}
           >
-            Next step
+            Next
           </Button>
         </div>
         <div className="flex items-center gap-3">
+          <Button
+            variant="outline"
+            size="icon"
+            onClick={() => setShowSmResumePreview(!showSmResumePreview)}
+            className="md:hidden"
+            title={
+              showSmResumePreview ? "Show input form" : "Show resume preview"
+            }
+          >
+            {showSmResumePreview ? <PenLineIcon /> : <FileUserIcon />}
+          </Button>
           <Button variant="secondary" asChild>
             <Link href="/resumes">Close</Link>
           </Button>
-          <p className="text-muted-foreground hidden">Saving...</p>
         </div>
       </div>
+      <p
+        className={cn(
+          "text-muted-foreground hidden pt-3 text-center",
+          isSaving && "opacity-100",
+        )}
+      >
+        Saving...
+      </p>
     </footer>
   );
 }

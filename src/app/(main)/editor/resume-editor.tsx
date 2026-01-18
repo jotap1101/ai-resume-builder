@@ -7,6 +7,7 @@ import { BreadcrumbDemo } from "@/app/(main)/editor/breadcrumb-demo";
 import { Footer } from "@/app/(main)/editor/footer";
 import { steps } from "@/app/(main)/editor/steps";
 import { Separator } from "@/components/ui/separator";
+import { cn } from "@/lib/utils";
 import { ResumeValues } from "@/lib/validation";
 
 import { ResumePreviewSection } from "./resume-preview-section";
@@ -19,6 +20,8 @@ export function ResumeEditor() {
   const [resumeData, setResumeData] = useState<ResumeValues>(
     {} as ResumeValues,
   );
+
+  const [showSmResumePreview, setShowSmResumePreview] = useState(false);
 
   function setCurrentStep(stepKey: string) {
     const params = new URLSearchParams(searchParams.toString());
@@ -41,9 +44,14 @@ export function ResumeEditor() {
         </p>
       </header>
       <main className="relative grow">
-        <div className="absolute inset-0 flex w-full flex-col md:flex-row">
+        <div className="absolute top-0 bottom-0 flex w-full">
           {/* Left */}
-          <div className="h-1/2 w-full space-y-6 overflow-y-auto p-3 md:h-full md:w-1/2">
+          <div
+            className={cn(
+              "w-full space-y-6 overflow-y-auto p-3 md:block md:w-1/2",
+              showSmResumePreview && "hidden",
+            )}
+          >
             <BreadcrumbDemo
               currentStep={currentStep}
               setCurrentStep={setCurrentStep}
@@ -56,20 +64,23 @@ export function ResumeEditor() {
             )}
           </div>
 
-          {/* Separator Mobile (Horizontal) */}
-          <Separator orientation="horizontal" className="block md:hidden" />
-
-          {/* Separator Desktop (Vertical) */}
-          <Separator orientation="vertical" className="hidden md:block" />
+          <div className="grow md:border-r" />
 
           {/* Right */}
           <ResumePreviewSection
             resumeData={resumeData}
             setResumeData={setResumeData}
+            className={cn(showSmResumePreview && "flex")}
           />
         </div>
       </main>
-      <Footer currentStep={currentStep} setCurrentStep={setCurrentStep} />
+      <Footer
+        currentStep={currentStep}
+        setCurrentStep={setCurrentStep}
+        showSmResumePreview={showSmResumePreview}
+        setShowSmResumePreview={setShowSmResumePreview}
+        isSaving={false}
+      />
     </div>
   );
 }

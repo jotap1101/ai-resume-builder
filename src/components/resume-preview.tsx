@@ -46,6 +46,31 @@ interface ResumeSectionProps {
   resumeData: ResumeValues;
 }
 
+function formatPhone(phone: string | undefined): string {
+  if (!phone) return "";
+
+  // Remove all non-numeric characters
+  const numbers = phone.replace(/\D/g, "");
+
+  // Format based on length
+  if (numbers.length === 11) {
+    // Brazilian mobile: (XX) XXXXX-XXXX
+    return numbers.replace(/(\d{2})(\d{5})(\d{4})/, "($1) $2-$3");
+  } else if (numbers.length === 10) {
+    // Brazilian landline: (XX) XXXX-XXXX
+    return numbers.replace(/(\d{2})(\d{4})(\d{4})/, "($1) $2-$3");
+  } else if (numbers.length === 9) {
+    // Mobile without area code: XXXXX-XXXX
+    return numbers.replace(/(\d{5})(\d{4})/, "$1-$2");
+  } else if (numbers.length === 8) {
+    // Landline without area code: XXXX-XXXX
+    return numbers.replace(/(\d{4})(\d{4})/, "$1-$2");
+  }
+
+  // Return original if doesn't match common patterns
+  return phone;
+}
+
 function PersonalInfoSection({ resumeData }: ResumeSectionProps) {
   const {
     photo,
@@ -127,7 +152,7 @@ function PersonalInfoSection({ resumeData }: ResumeSectionProps) {
           {city && country ? ", " : ""}
           {country}
           {(city || country) && (phone || email) ? " • " : ""}
-          {[phone, email].filter(Boolean).join(" • ")}
+          {[formatPhone(phone), email].filter(Boolean).join(" • ")}
         </p>
       </div>
     </div>
