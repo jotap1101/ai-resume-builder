@@ -59,7 +59,7 @@ export const educationSchema = z.object({
 });
 
 export const skillSchema = z.object({
-  skills: z.array(optionalString).optional(),
+  skills: z.array(z.string().trim()).optional(),
 });
 
 export const summarySchema = z.object({
