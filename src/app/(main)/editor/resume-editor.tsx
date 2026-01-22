@@ -5,12 +5,12 @@ import { useState } from "react";
 
 import { BreadcrumbDemo } from "@/app/(main)/editor/breadcrumb-demo";
 import { Footer } from "@/app/(main)/editor/footer";
+import { ResumePreviewSection } from "@/app/(main)/editor/resume-preview-section";
 import { steps } from "@/app/(main)/editor/steps";
-import { Separator } from "@/components/ui/separator";
+import useAutoSaveResume from "@/app/(main)/editor/use-auto-save-resume";
+import useUnloadWarning from "@/hooks/use-unload-warning";
 import { cn } from "@/lib/utils";
 import { ResumeValues } from "@/lib/validation";
-
-import { ResumePreviewSection } from "./resume-preview-section";
 
 export function ResumeEditor() {
   const searchParams = useSearchParams();
@@ -22,6 +22,10 @@ export function ResumeEditor() {
   );
 
   const [showSmResumePreview, setShowSmResumePreview] = useState(false);
+
+  const { isSaving, hasUnsavedChanges } = useAutoSaveResume(resumeData);
+
+  useUnloadWarning(hasUnsavedChanges);
 
   function setCurrentStep(stepKey: string) {
     const params = new URLSearchParams(searchParams.toString());
@@ -79,7 +83,7 @@ export function ResumeEditor() {
         setCurrentStep={setCurrentStep}
         showSmResumePreview={showSmResumePreview}
         setShowSmResumePreview={setShowSmResumePreview}
-        isSaving={false}
+        isSaving={isSaving}
       />
     </div>
   );

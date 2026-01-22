@@ -28,7 +28,15 @@ export function Footer({
   )?.key;
 
   return (
-    <footer className="w-full border-t px-3 py-5">
+    <footer className="w-full border-t p-3 md:py-5">
+      <p
+        className={cn(
+          "text-muted-foreground mb-3 text-center opacity-0 md:mb-5 md:hidden",
+          isSaving && "opacity-100",
+        )}
+      >
+        Saving...
+      </p>
       <div className="mx-auto flex max-w-7xl flex-wrap justify-between gap-3">
         <div className="flex items-center gap-3">
           <Button
@@ -47,6 +55,14 @@ export function Footer({
             Next
           </Button>
         </div>
+        <p
+          className={cn(
+            "text-muted-foreground hidden pt-3 text-center opacity-0 md:block",
+            isSaving && "opacity-100",
+          )}
+        >
+          Saving...
+        </p>
         <div className="flex items-center gap-3">
           <Button
             variant="outline"
@@ -64,14 +80,6 @@ export function Footer({
           </Button>
         </div>
       </div>
-      <p
-        className={cn(
-          "text-muted-foreground hidden pt-3 text-center",
-          isSaving && "opacity-100",
-        )}
-      >
-        Saving...
-      </p>
     </footer>
   );
 }
