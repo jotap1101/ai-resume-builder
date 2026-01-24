@@ -85,5 +85,5 @@ export type SkillValues = z.infer<typeof skillSchema>;
 export type SummaryValues = z.infer<typeof summarySchema>;
 export type ResumeValues = Omit<z.infer<typeof resumeSchema>, "photo"> & {
   id?: string;
-  photo: File | string | null;
+  photo?: File | string | null;
 };

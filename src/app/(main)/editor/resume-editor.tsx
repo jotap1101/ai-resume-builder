@@ -9,16 +9,21 @@ import { ResumePreviewSection } from "@/app/(main)/editor/resume-preview-section
 import { steps } from "@/app/(main)/editor/steps";
 import useAutoSaveResume from "@/app/(main)/editor/use-auto-save-resume";
 import useUnloadWarning from "@/hooks/use-unload-warning";
-import { cn } from "@/lib/utils";
+import { ResumeServerData } from "@/lib/types";
+import { cn, mapToResumeValues } from "@/lib/utils";
 import { ResumeValues } from "@/lib/validation";
 
-export function ResumeEditor() {
+interface ResumeEditorProps {
+  resumeToEdit: ResumeServerData | null;
+}
+
+export function ResumeEditor({ resumeToEdit }: ResumeEditorProps) {
   const searchParams = useSearchParams();
 
   const currentStep = searchParams.get("step") || steps[0].key;
 
   const [resumeData, setResumeData] = useState<ResumeValues>(
-    {} as ResumeValues,
+    resumeToEdit ? mapToResumeValues(resumeToEdit) : {},
   );
 
   const [showSmResumePreview, setShowSmResumePreview] = useState(false);
