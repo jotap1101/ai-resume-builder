@@ -39,9 +39,13 @@ export async function saveResume(values: ResumeValues) {
       await del(existingResume.photoUrl);
     }
 
-    const blob = await put(`resume_photos/${randomUUID()}${path.extname(photo.name)}`, photo, {
-      access: "public",
-    });
+    const blob = await put(
+      `resume_photos/${randomUUID()}${path.extname(photo.name)}`,
+      photo,
+      {
+        access: "public",
+      },
+    );
 
     newPhotoUrl = blob.url;
   } else if (photo === null) {

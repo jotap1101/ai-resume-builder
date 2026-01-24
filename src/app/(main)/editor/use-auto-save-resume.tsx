@@ -56,7 +56,7 @@ export default function useAutoSaveResume(resumeData: ResumeValues) {
             `?${newSearchParams.toString()}`,
           );
         }
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
       } catch (error) {
         setIsError(true);
 
