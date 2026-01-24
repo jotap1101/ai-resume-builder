@@ -2,6 +2,7 @@
 
 import { auth } from "@clerk/nextjs/server";
 import { del, put } from "@vercel/blob";
+import { randomUUID } from "crypto";
 import path from "path";
 
 import { prisma } from "@/lib/prisma";
@@ -38,7 +39,7 @@ export async function saveResume(values: ResumeValues) {
       await del(existingResume.photoUrl);
     }
 
-    const blob = await put(`resume_photos/${path.extname(photo.name)}`, photo, {
+    const blob = await put(`resume_photos/${randomUUID()}${path.extname(photo.name)}`, photo, {
       access: "public",
     });
 
