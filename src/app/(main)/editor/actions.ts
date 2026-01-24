@@ -11,7 +11,7 @@ import { resumeSchema, ResumeValues } from "@/lib/validation";
 export async function saveResume(values: ResumeValues) {
   const { id } = values;
 
-  console.log("Received values:", values);
+  // console.log("Received values:", values);
 
   const { photo, workExperiences, educations, ...resumeValues } =
     resumeSchema.parse(values);

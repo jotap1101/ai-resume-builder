@@ -56,10 +56,11 @@ export default function useAutoSaveResume(resumeData: ResumeValues) {
             `?${newSearchParams.toString()}`,
           );
         }
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       } catch (error) {
         setIsError(true);
 
-        console.error(error);
+        // console.error(error);
 
         const toastId = toast.error("Failed to auto-save resume.", {
           description: "Please try saving manually.",
