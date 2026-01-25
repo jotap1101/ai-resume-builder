@@ -77,6 +77,13 @@ export const resumeSchema = z.object({
   borderStyle: optionalString,
 });
 
+export const generateResumeSummarySchema = z.object({
+  jobTitle: optionalString,
+  ...workExperienceSchema.shape,
+  ...educationSchema.shape,
+  ...skillSchema.shape,
+});
+
 export type GeneralInfoValues = z.infer<typeof generalInfoSchema>;
 export type PersonalInfoValues = z.infer<typeof personalInfoSchema>;
 export type WorkExperienceValues = z.infer<typeof workExperienceSchema>;
@@ -87,3 +94,6 @@ export type ResumeValues = Omit<z.infer<typeof resumeSchema>, "photo"> & {
   id?: string;
   photo?: File | string | null;
 };
+export type GenerateResumeSummaryInput = z.infer<
+  typeof generateResumeSummarySchema
+>;
