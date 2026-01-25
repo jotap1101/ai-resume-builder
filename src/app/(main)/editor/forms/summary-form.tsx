@@ -2,6 +2,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 
+import { GenerateResumeSummaryButton } from "@/app/(main)/editor/forms/generate-resume-summary-button";
 import {
   Form,
   FormControl,
@@ -77,6 +78,12 @@ export function SummaryForm({ resumeData, setResumeData }: EditorFormProps) {
                   A brief summary to highlight your key qualifications.
                 </FormDescription>
                 <FormMessage />
+                <GenerateResumeSummaryButton
+                  resumeData={resumeData}
+                  onSummaryGenerated={(summary) =>
+                    form.setValue("summary", summary)
+                  }
+                />
               </FormItem>
             )}
           />

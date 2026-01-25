@@ -32,6 +32,7 @@ export function ResumePreview({ resumeData, className }: ResumePreviewProps) {
           zoom: (1 / 794) * width,
         }}
       >
+        {/* <pre>{JSON.stringify(resumeData, null, 2)}</pre> */}
         <PersonalInfoSection resumeData={resumeData} />
         <SummarySection resumeData={resumeData} />
         <WorkExperienceSection resumeData={resumeData} />

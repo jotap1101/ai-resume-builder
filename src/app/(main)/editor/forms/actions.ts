@@ -50,8 +50,8 @@ export async function generateResumeSummary(input: GenerateResumeSummaryInput) {
     ${skills}
   `;
 
-  console.log("systemMessage:\n", systemMessage);
-  console.log("userMessage:\n", userMessage);
+  // console.log("systemMessage:\n", systemMessage);
+  // console.log("userMessage:\n", userMessage);
 
   try {
     const response = await ai.models.generateContent({
@@ -81,8 +81,10 @@ export async function generateResumeSummary(input: GenerateResumeSummaryInput) {
 
     return response.text;
   } catch (error) {
-    console.error("Error generating resume summary:", error);
+    // console.error("Error generating resume summary:", error);
 
     throw new Error("Failed to generate resume summary");
+  } finally {
+    // console.log("Finished generating resume summary");
   }
 }
