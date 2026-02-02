@@ -37,6 +37,8 @@ import { EditorFormProps } from "@/lib/types";
 import { cn } from "@/lib/utils";
 import { workExperienceSchema, WorkExperienceValues } from "@/lib/validation";
 
+import { GenerateResumeDescriptionWorkExperienceButton } from "./generate-resume-work-experience-description-button";
+
 export function WorkExperienceForm({
   resumeData,
   setResumeData,
@@ -189,6 +191,16 @@ function WorkExperienceField({
           className="text-muted-foreground size-5 cursor-grab focus:outline-none"
           {...attributes}
           {...listeners}
+        />
+      </div>
+      <div className="flex justify-center">
+        <GenerateResumeDescriptionWorkExperienceButton
+          onWorkExperienceGenerated={(workExperienceItem) => {
+            form.setValue(
+              `workExperiences.${index}.description`,
+              workExperienceItem.description,
+            );
+          }}
         />
       </div>
       <FormField

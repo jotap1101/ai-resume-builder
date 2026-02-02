@@ -24,6 +24,7 @@ export function GenerateResumeSummaryButton({
       const response = await generateResumeSummary(resumeData);
 
       onSummaryGenerated(response);
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (error) {
       // console.error("Error generating resume summary:", error);
 
