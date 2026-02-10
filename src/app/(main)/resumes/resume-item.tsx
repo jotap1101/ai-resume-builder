@@ -55,7 +55,7 @@ export function ResumeItem({ resume }: ResumeItemProps) {
           {resume.description && (
             <p className="line-clamp-2 text-sm">{resume.description}</p>
           )}
-          <p className="text-muted-foreground mt-1 text-xs">
+          <p className="text-muted-foreground text-xs">
             {wasUpdated ? "Updated" : "Created"} on{" "}
             {formatDate(resume.updatedAt, "MMM d, yyyy h:mm a")}
           </p>
@@ -64,12 +64,11 @@ export function ResumeItem({ resume }: ResumeItemProps) {
           href={`/editor?resumeId=${resume.id}`}
           className="relative inline-block w-full"
         >
-          <div ref={contentRef}>
-            <ResumePreview
-              resumeData={mapToResumeValues(resume)}
-              className="overflow-hidden shadow-sm transition-shadow group-hover:shadow-lg"
-            />
-          </div>
+          <ResumePreview
+            resumeData={mapToResumeValues(resume)}
+            contentRef={contentRef}
+            className="overflow-hidden shadow-sm transition-shadow group-hover:shadow-lg"
+          />
           <div className="absolute inset-x-0 bottom-0 h-16 bg-linear-to-t from-white to-transparent" />
         </Link>
       </div>
@@ -142,8 +141,9 @@ function DeleteConfirmationDialog({
       try {
         await deleteResume(resumeId);
         onOpenChange(false);
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
       } catch (error) {
-        console.error(error);
+        // console.error(error);
 
         toast.error("Failed to delete resume. Please try again.");
       }

@@ -135,7 +135,7 @@ export async function generateResumeDescriptionWorkExperience(
       ],
     });
 
-    console.log(response);
+    // console.log(response);
 
     if (!response.text) {
       throw new Error("No text returned from Gemini API");

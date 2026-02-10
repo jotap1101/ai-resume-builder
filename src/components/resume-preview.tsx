@@ -11,9 +11,14 @@ import { ResumeValues } from "@/lib/validation";
 interface ResumePreviewProps {
   resumeData: ResumeValues;
   className?: string;
+  contentRef?: React.Ref<HTMLDivElement>;
 }
 
-export function ResumePreview({ resumeData, className }: ResumePreviewProps) {
+export function ResumePreview({
+  resumeData,
+  className,
+  contentRef,
+}: ResumePreviewProps) {
   const containerRef = useRef<HTMLDivElement>(null);
 
   const { width } = useDimensions(containerRef);
@@ -31,8 +36,9 @@ export function ResumePreview({ resumeData, className }: ResumePreviewProps) {
         style={{
           zoom: (1 / 794) * width,
         }}
+        ref={contentRef}
+        id="resumePreviewContent"
       >
-        {/* <pre>{JSON.stringify(resumeData, null, 2)}</pre> */}
         <PersonalInfoSection resumeData={resumeData} />
         <SummarySection resumeData={resumeData} />
         <WorkExperienceSection resumeData={resumeData} />
