@@ -6,6 +6,7 @@ const nextConfig: NextConfig = {
   experimental: {
     serverActions: {
       bodySizeLimit: "4mb",
+      allowedOrigins: ["localhost:3000", "*.devtunnels.ms"],
     },
   },
   images: {
@@ -16,6 +17,7 @@ const nextConfig: NextConfig = {
       },
     ],
   },
+  serverExternalPackages: ["@node-rs/argon2"],
 };
 
 export default nextConfig;
