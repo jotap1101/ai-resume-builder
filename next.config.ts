@@ -17,7 +17,7 @@ const nextConfig: NextConfig = {
       },
     ],
   },
-  serverExternalPackages: ["@node-rs/argon2"],
+  serverExternalPackages: ["@node-rs/argon2", "@prisma/client"],
 };
 
 export default nextConfig;
