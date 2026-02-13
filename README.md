@@ -9,8 +9,6 @@
 
 Sistema de criação de currículos com editor visual, IA integrada (Google Gemini), sistema de autenticação (Clerk), e planos de assinatura (Stripe).
 
----
-
 ## ✨ Funcionalidades Principais
 
 - Editor de currículos com preview em tempo real
@@ -19,8 +17,6 @@ Sistema de criação de currículos com editor visual, IA integrada (Google Gemi
 - Planos Free, Pro e Pro Plus
 - Upload de fotos e customizações
 - Exportação em PDF
-
----
 
 ## 🛠️ Stack
 
@@ -34,8 +30,6 @@ Sistema de criação de currículos com editor visual, IA integrada (Google Gemi
 - **Google Gemini AI**
 - **Tailwind CSS**
 - **shadcn/ui**
-
----
 
 ## 🚀 Instalação e Configuração Local
 
@@ -83,8 +77,6 @@ npm run dev
 
 Acesse [http://localhost:3000](http://localhost:3000).
 
----
-
 ## 📝 Observações
 
 Antes de rodar o projeto, você precisará configurar as seguintes plataformas:
@@ -100,8 +92,6 @@ Antes de rodar o projeto, você precisará configurar as seguintes plataformas:
 Todas as credenciais devem ser adicionadas no arquivo `.env` conforme o template `env.example`.
 
 Para mais detalhes sobre Clerk, veja [ADD_CLERK.md](./ADD_CLERK.md).
-
----
 
 ## 📄 Licença
 
