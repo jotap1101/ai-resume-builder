@@ -10,7 +10,7 @@ import { useTheme } from "next-themes";
 import { ModeToggle } from "@/components/mode-toggle";
 
 export function Navbar() {
-  const { theme } = useTheme();
+  const { resolvedTheme } = useTheme();
 
   return (
     <header className="shadow-sm dark:shadow-[0_1px_2px_rgba(255,255,255,0.06)]">
@@ -31,7 +31,7 @@ export function Navbar() {
           <ModeToggle />
           <UserButton
             appearance={{
-              baseTheme: theme === "dark" ? dark : undefined,
+              baseTheme: resolvedTheme === "dark" ? dark : undefined,
               elements: {
                 avatarBox: {
                   width: 35,
