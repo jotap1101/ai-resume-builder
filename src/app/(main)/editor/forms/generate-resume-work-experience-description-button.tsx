@@ -5,6 +5,7 @@ import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 
 import { generateResumeDescriptionWorkExperience } from "@/app/(main)/editor/forms/actions";
+import { useSubscriptionLevel } from "@/app/(main)/subscription-level-provider";
 import { LoadingButton } from "@/components/loading-button";
 import { Button } from "@/components/ui/button";
 import {
@@ -24,6 +25,8 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Textarea } from "@/components/ui/textarea";
+import { usePremiumModal } from "@/hooks/use-premium-modal";
+import { canUseAITools } from "@/lib/permissions";
 import {
   GenerateResumeDescriptionWorkExperienceInput,
   generateResumeDescriptionWorkExperienceSchema,
@@ -37,15 +40,23 @@ interface GenerateResumeDescriptionWorkExperienceButtonProps {
 export function GenerateResumeDescriptionWorkExperienceButton({
   onWorkExperienceGenerated,
 }: GenerateResumeDescriptionWorkExperienceButtonProps) {
+  const subscriptionLevel = useSubscriptionLevel();
+  const premiumModal = usePremiumModal();
+
   const [showInputDialog, setShowInputDialog] = useState(false);
+
+  async function handleClick() {
+    if (!canUseAITools(subscriptionLevel)) {
+      premiumModal.setOpen(true);
+
+      return;
+    }
+    setShowInputDialog(true);
+  }
 
   return (
     <>
-      <Button
-        variant="outline"
-        type="button"
-        onClick={() => setShowInputDialog(true)}
-      >
+      <Button variant="outline" type="button" onClick={handleClick}>
         <WandSparklesIcon className="size-4" />
         Smart fill (AI)
       </Button>

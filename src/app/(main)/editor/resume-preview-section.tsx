@@ -1,5 +1,5 @@
 import { BorderStyleButton } from "@/app/(main)/editor/border-style-button";
-import ColorPicker from "@/app/(main)/editor/color-picker";
+import { ColorPicker } from "@/app/(main)/editor/color-picker";
 import { ResumePreview } from "@/components/resume-preview";
 import { cn } from "@/lib/utils";
 import { ResumeValues } from "@/lib/validation";

@@ -21,6 +21,7 @@ import { GripHorizontal } from "lucide-react";
 import { useEffect } from "react";
 import { useFieldArray, useForm, UseFormReturn } from "react-hook-form";
 
+import { GenerateResumeDescriptionWorkExperienceButton } from "@/app/(main)/editor/forms/generate-resume-work-experience-description-button";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -36,8 +37,6 @@ import { Textarea } from "@/components/ui/textarea";
 import { EditorFormProps } from "@/lib/types";
 import { cn } from "@/lib/utils";
 import { workExperienceSchema, WorkExperienceValues } from "@/lib/validation";
-
-import { GenerateResumeDescriptionWorkExperienceButton } from "./generate-resume-work-experience-description-button";
 
 export function WorkExperienceForm({
   resumeData,

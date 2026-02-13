@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-export default function useDimensions<T extends HTMLElement>(
+export function useDimensions<T extends HTMLElement>(
   containerRef: React.RefObject<T | null>,
 ) {
   const [dimensions, setDimensions] = useState({ width: 0, height: 0 });

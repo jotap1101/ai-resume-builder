@@ -4,11 +4,11 @@ import { toast } from "sonner";
 
 import { saveResume } from "@/app/(main)/editor/actions";
 import { Button } from "@/components/ui/button";
-import useDebounce from "@/hooks/use-debounce";
+import { useDebounce } from "@/hooks/use-debounce";
 import { fileReplacer } from "@/lib/utils";
 import { ResumeValues } from "@/lib/validation";
 
-export default function useAutoSaveResume(resumeData: ResumeValues) {
+export function useAutoSaveResume(resumeData: ResumeValues) {
   const searchParams = useSearchParams();
 
   const debouncedResumeData = useDebounce<ResumeValues>(resumeData, 1500);

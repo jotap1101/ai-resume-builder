@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 
 import { BorderStyles } from "@/app/(main)/editor/border-style-button";
 import { Badge } from "@/components/ui/badge";
-import useDimensions from "@/hooks/use-dimensions";
+import { useDimensions } from "@/hooks/use-dimensions";
 import { cn } from "@/lib/utils";
 import { ResumeValues } from "@/lib/validation";
 

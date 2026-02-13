@@ -2,16 +2,17 @@
 
 import { auth } from "@clerk/nextjs/server";
 import { del, put } from "@vercel/blob";
-import { randomUUID } from "crypto";
 import path from "path";
 
+import { canCreateResume, canUseCustomizations } from "@/lib/permissions";
 import { prisma } from "@/lib/prisma";
+import { getUserSubscriptionLevel } from "@/lib/subscription";
 import { resumeSchema, ResumeValues } from "@/lib/validation";
 
 export async function saveResume(values: ResumeValues) {
   const { id } = values;
 
-  // console.log("Received values:", values);
+  // console.log("received values", values);
 
   const { photo, workExperiences, educations, ...resumeValues } =
     resumeSchema.parse(values);
@@ -22,14 +23,34 @@ export async function saveResume(values: ResumeValues) {
     throw new Error("User not authenticated");
   }
 
+  const subscriptionLevel = await getUserSubscriptionLevel(userId);
+
+  if (!id) {
+    const resumeCount = await prisma.resume.count({ where: { userId } });
+
+    if (!canCreateResume(subscriptionLevel, resumeCount)) {
+      throw new Error(
+        "Maximum resume count reached for this subscription level",
+      );
+    }
+  }
+
   const existingResume = id
-    ? await prisma.resume.findUnique({
-        where: { id, userId },
-      })
+    ? await prisma.resume.findUnique({ where: { id, userId } })
     : null;
 
   if (id && !existingResume) {
     throw new Error("Resume not found");
+  }
+
+  const hasCustomizations =
+    (resumeValues.borderStyle &&
+      resumeValues.borderStyle !== existingResume?.borderStyle) ||
+    (resumeValues.colorHex &&
+      resumeValues.colorHex !== existingResume?.colorHex);
+
+  if (hasCustomizations && !canUseCustomizations(subscriptionLevel)) {
+    throw new Error("Customizations not allowed for this subscription level");
   }
 
   let newPhotoUrl: string | undefined | null = undefined;
@@ -39,20 +60,15 @@ export async function saveResume(values: ResumeValues) {
       await del(existingResume.photoUrl);
     }
 
-    const blob = await put(
-      `resume_photos/${randomUUID()}${path.extname(photo.name)}`,
-      photo,
-      {
-        access: "public",
-      },
-    );
+    const blob = await put(`resume_photos/${path.extname(photo.name)}`, photo, {
+      access: "public",
+    });
 
     newPhotoUrl = blob.url;
   } else if (photo === null) {
     if (existingResume?.photoUrl) {
       await del(existingResume.photoUrl);
     }
-
     newPhotoUrl = null;
   }
 
@@ -96,17 +112,25 @@ export async function saveResume(values: ResumeValues) {
         userId,
         photoUrl: newPhotoUrl,
         workExperiences: {
-          create: workExperiences?.map((exp) => ({
-            ...exp,
-            startDate: exp.startDate ? new Date(exp.startDate) : undefined,
-            endDate: exp.endDate ? new Date(exp.endDate) : undefined,
+          create: workExperiences?.map((experience) => ({
+            ...experience,
+            startDate: experience.startDate
+              ? new Date(experience.startDate)
+              : undefined,
+            endDate: experience.endDate
+              ? new Date(experience.endDate)
+              : undefined,
           })),
         },
         educations: {
-          create: educations?.map((edu) => ({
-            ...edu,
-            startDate: edu.startDate ? new Date(edu.startDate) : undefined,
-            endDate: edu.endDate ? new Date(edu.endDate) : undefined,
+          create: educations?.map((education) => ({
+            ...education,
+            startDate: education.startDate
+              ? new Date(education.startDate)
+              : undefined,
+            endDate: education.endDate
+              ? new Date(education.endDate)
+              : undefined,
           })),
         },
       },

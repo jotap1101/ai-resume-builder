@@ -1,8 +1,11 @@
 "use server";
 
+import { auth } from "@clerk/nextjs/server";
 import { ThinkingLevel } from "@google/genai";
 
 import { ai } from "@/lib/gemini";
+import { canUseAITools } from "@/lib/permissions";
+import { getUserSubscriptionLevel } from "@/lib/subscription";
 import {
   GenerateResumeDescriptionWorkExperienceInput,
   generateResumeDescriptionWorkExperienceSchema,
@@ -12,6 +15,18 @@ import {
 } from "@/lib/validation";
 
 export async function generateResumeSummary(input: GenerateResumeSummaryInput) {
+  const { userId } = await auth();
+
+  if (!userId) {
+    throw new Error("Unauthorized");
+  }
+
+  const subscriptionLevel = await getUserSubscriptionLevel(userId);
+
+  if (!canUseAITools(subscriptionLevel)) {
+    throw new Error("Upgrade your subscription to use this feature");
+  }
+
   const { jobTitle, workExperiences, educations, skills } =
     generateResumeSummarySchema.parse(input);
 
@@ -93,6 +108,18 @@ export async function generateResumeSummary(input: GenerateResumeSummaryInput) {
 export async function generateResumeDescriptionWorkExperience(
   input: GenerateResumeDescriptionWorkExperienceInput,
 ) {
+  const { userId } = await auth();
+
+  if (!userId) {
+    throw new Error("Unauthorized");
+  }
+
+  const subscriptionLevel = await getUserSubscriptionLevel(userId);
+
+  if (!canUseAITools(subscriptionLevel)) {
+    throw new Error("Upgrade your subscription to use this feature");
+  }
+
   const { description } =
     generateResumeDescriptionWorkExperienceSchema.parse(input);
 
