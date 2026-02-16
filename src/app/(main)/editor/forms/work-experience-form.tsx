@@ -198,9 +198,29 @@ function WorkExperienceField({
         <GenerateResumeDescriptionWorkExperienceButton
           onWorkExperienceGenerated={(workExperienceItem) => {
             form.setValue(
+              `workExperiences.${index}.position`,
+              workExperienceItem.position,
+            );
+            form.setValue(
+              `workExperiences.${index}.company`,
+              workExperienceItem.company,
+            );
+            form.setValue(
               `workExperiences.${index}.description`,
               workExperienceItem.description,
             );
+            if (workExperienceItem.startDate) {
+              form.setValue(
+                `workExperiences.${index}.startDate`,
+                workExperienceItem.startDate,
+              );
+            }
+            if (workExperienceItem.endDate) {
+              form.setValue(
+                `workExperiences.${index}.endDate`,
+                workExperienceItem.endDate,
+              );
+            }
           }}
         />
       </div>
