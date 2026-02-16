@@ -44,7 +44,10 @@ export default async function Page() {
           {subscription.stripeCancelAtPeriodEnd && (
             <p className="text-destructive">
               Sua assinatura será cancelada em{" "}
-              {formatDate(subscription.stripeCurrentPeriodEnd, "MMMM dd, yyyy")}
+              {formatDate(
+                subscription.stripeCurrentPeriodEnd,
+                "dd 'de' MMMM 'de' yyyy",
+              )}
             </p>
           )}
           <ManageSubscriptionButton />
