@@ -2,7 +2,6 @@
 
 import { auth } from "@clerk/nextjs/server";
 import { ThinkingLevel } from "@google/genai";
-import { toast } from "sonner";
 
 import { ai } from "@/lib/gemini";
 import { canUseAITools } from "@/lib/permissions";
@@ -112,8 +111,6 @@ export async function generateResumeSummary(input: GenerateResumeSummaryInput) {
     throw new Error("Falha ao gerar resumo do currículo");
   } finally {
     // console.log("Finished generating resume summary");
-
-    toast.dismiss();
   }
 }
 
@@ -207,7 +204,5 @@ export async function generateResumeDescriptionWorkExperience(
     throw new Error("Falha ao gerar descrição da experiência profissional");
   } finally {
     // console.log("Finished generating work experience description");
-
-    toast.dismiss();
   }
 }
