@@ -50,10 +50,10 @@ export function ResumeItem({ resume }: ResumeItemProps) {
           className="inline-block w-full text-center"
         >
           <p className="line-clamp-1 font-semibold">
-            {resume.title || "No title"}
+            {resume.title || "Sem título"}
           </p>
           {resume.description && (
-            <p className="line-clamp-2 text-sm">{resume.description}</p>
+            <p className="line-clamp-2 text-sm">{resume.description || "Sem descrição"}</p>
           )}
           <p className="text-muted-foreground text-xs">
             {wasUpdated ? "Atualizado" : "Criado"} em{" "}
