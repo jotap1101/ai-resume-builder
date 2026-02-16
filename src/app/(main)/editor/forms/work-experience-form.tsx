@@ -98,9 +98,9 @@ export function WorkExperienceForm({
   return (
     <div className="mx-auto max-w-xl space-y-6">
       <div className="space-y-1.5 text-center">
-        <h2 className="text-2xl font-semibold">Work experience</h2>
+        <h2 className="text-2xl font-semibold">Experiências profissionais</h2>
         <p className="text-muted-foreground text-sm">
-          Add as many work experiences as you&apos;d like.
+          Adicione quantas experiências profissionais desejar.
         </p>
       </div>
       <Form {...form}>
@@ -139,7 +139,7 @@ export function WorkExperienceForm({
                 })
               }
             >
-              Add Work Experience
+              Adicionar experiência
             </Button>
           </div>
         </form>
@@ -185,7 +185,9 @@ function WorkExperienceField({
       style={style}
     >
       <div className="flex justify-between gap-2">
-        <span className="font-semibold">Work experience {index + 1}</span>
+        <span className="font-semibold">
+          Experiência profissional {index + 1}
+        </span>
         <GripHorizontal
           className="text-muted-foreground size-5 cursor-grab focus:outline-none"
           {...attributes}
@@ -207,11 +209,15 @@ function WorkExperienceField({
         name={`workExperiences.${index}.position`}
         render={({ field }) => (
           <FormItem>
-            <FormLabel>Position</FormLabel>
+            <FormLabel>Cargo</FormLabel>
             <FormControl>
-              <Input placeholder="Software Engineer" {...field} autoFocus />
+              <Input
+                placeholder="Ex: Desenvolvedor Frontend"
+                {...field}
+                autoFocus
+              />
             </FormControl>
-            <FormDescription>The position you held.</FormDescription>
+            <FormDescription>O cargo que você ocupou.</FormDescription>
             <FormMessage />
           </FormItem>
         )}
@@ -221,11 +227,13 @@ function WorkExperienceField({
         name={`workExperiences.${index}.company`}
         render={({ field }) => (
           <FormItem>
-            <FormLabel>Company</FormLabel>
+            <FormLabel>Empresa</FormLabel>
             <FormControl>
-              <Input placeholder="Company Inc." {...field} />
+              <Input placeholder="Ex: Google" {...field} />
             </FormControl>
-            <FormDescription>The company you worked for.</FormDescription>
+            <FormDescription>
+              A empresa para a qual você trabalhou.
+            </FormDescription>
             <FormMessage />
           </FormItem>
         )}
@@ -239,11 +247,13 @@ function WorkExperienceField({
 
             return (
               <FormItem>
-                <FormLabel>Start date</FormLabel>
+                <FormLabel>Data de início</FormLabel>
                 <FormControl>
                   <Input type="date" {...rest} value={value?.slice(0, 10)} />
                 </FormControl>
-                <FormDescription>The date you started working.</FormDescription>
+                <FormDescription>
+                  A data em que você começou a trabalhar.
+                </FormDescription>
                 <FormMessage />
               </FormItem>
             );
@@ -257,13 +267,14 @@ function WorkExperienceField({
 
             return (
               <FormItem>
-                <FormLabel>End date</FormLabel>
+                <FormLabel>Data de término</FormLabel>
                 <FormControl>
                   <Input type="date" {...rest} value={value?.slice(0, 10)} />
                 </FormControl>
                 <FormDescription>
-                  Leave <span className="font-semibold">end date</span> empty if
-                  you are currently working here.
+                  Deixe o campo{" "}
+                  <span className="font-semibold">data de término</span> vazio
+                  se você estiver trabalhando aqui atualmente.
                 </FormDescription>
                 <FormMessage />
               </FormItem>
@@ -276,14 +287,14 @@ function WorkExperienceField({
         name={`workExperiences.${index}.description`}
         render={({ field }) => (
           <FormItem>
-            <FormLabel>Description</FormLabel>
+            <FormLabel>Descrição</FormLabel>
             <FormControl>
               <Textarea
-                placeholder="A brief description of your role"
+                placeholder="Ex: Responsável pelo desenvolvimento da interface do usuário usando React.js..."
                 {...field}
               />
             </FormControl>
-            <FormDescription>A brief description of your role.</FormDescription>
+            <FormDescription>Uma breve descrição do seu cargo.</FormDescription>
             <FormMessage />
           </FormItem>
         )}

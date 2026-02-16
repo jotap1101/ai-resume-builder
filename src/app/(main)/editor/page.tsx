@@ -7,7 +7,7 @@ import { resumeDataInclude } from "@/lib/types";
 
 export const metadata: Metadata = {
   title: "Editor",
-  description: "Create and edit your resumes",
+  description: "Crie e edite seus currículos.",
 };
 
 interface PageProps {

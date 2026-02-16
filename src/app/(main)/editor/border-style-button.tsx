@@ -50,7 +50,7 @@ export function BorderStyleButton({
     <Button
       variant="outline"
       size="icon"
-      title="Change border style"
+      title="Alterar estilo da borda da foto do perfil"
       onClick={handleClick}
     >
       <Icon className="size-5" />

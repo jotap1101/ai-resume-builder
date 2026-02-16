@@ -1,5 +1,6 @@
 import "./globals.css";
 
+import { ptBR } from "@clerk/localizations";
 import { ClerkProvider } from "@clerk/nextjs";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
@@ -18,7 +19,7 @@ export const metadata: Metadata = {
     absolute: "AI Resume Builder",
   },
   description:
-    "AI Resume Builder is the easiest way to create a professional resume that will help land your dream job.",
+    "O AI Resume Builder é a maneira mais fácil de criar um currículo profissional que o ajudará a conseguir o emprego dos seus sonhos.",
 };
 
 export default function RootLayout({
@@ -27,8 +28,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <ClerkProvider>
-      <html lang="en" suppressHydrationWarning>
+    <ClerkProvider localization={ptBR}>
+      <html lang="pt-BR" suppressHydrationWarning>
         <body className={`${inter.className} antialiased`}>
           <ThemeProvider
             attribute="class"

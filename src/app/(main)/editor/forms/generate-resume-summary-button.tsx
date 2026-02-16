@@ -40,8 +40,8 @@ export function GenerateResumeSummaryButton({
     } catch (error) {
       // console.error("Error generating resume summary:", error);
 
-      toast.error("Failed to generate resume summary.", {
-        description: "Something went wrong. Please try again.",
+      toast.error("Falha ao gerar o resumo do currículo.", {
+        description: "Algo deu errado. Por favor, tente novamente.",
       });
     } finally {
       setLoading(false);
@@ -56,7 +56,7 @@ export function GenerateResumeSummaryButton({
       loading={loading}
     >
       <WandSparklesIcon className="size-4" />
-      Generate Summary (AI)
+      Gerar Resumo (AI)
     </LoadingButton>
   );
 }

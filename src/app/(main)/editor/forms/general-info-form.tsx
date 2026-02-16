@@ -50,9 +50,9 @@ export function GeneralInfoForm({
   return (
     <div className="mx-auto max-w-xl space-y-6">
       <div className="space-y-1.5 text-center">
-        <h2 className="text-2xl font-semibold">General info</h2>
+        <h2 className="text-2xl font-semibold">Informações gerais</h2>
         <p className="text-muted-foreground text-sm">
-          This will not appear on your resume.
+          Essas informações não aparecerão no seu currículo.
         </p>
       </div>
       <Form {...form}>
@@ -62,15 +62,15 @@ export function GeneralInfoForm({
             name="title"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Title</FormLabel>
+                <FormLabel>Título</FormLabel>
                 <FormControl>
                   <Input
-                    placeholder="Software Engineer Resume"
+                    placeholder="Ex: Currículo para vaga de desenvolvedor frontend"
                     {...field}
                     autoFocus
                   />
                 </FormControl>
-                <FormDescription>The title of your resume.</FormDescription>
+                <FormDescription>O título do seu currículo.</FormDescription>
                 <FormMessage />
               </FormItem>
             )}
@@ -80,15 +80,16 @@ export function GeneralInfoForm({
             name="description"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Description</FormLabel>
+                <FormLabel>Descrição</FormLabel>
                 <FormControl>
                   <Input
-                    placeholder="A short description about resume"
+                    placeholder="Ex: Este currículo é focado na minha experiência..."
                     {...field}
                   />
                 </FormControl>
                 <FormDescription>
-                  A brief description to help you identify this resume.
+                  Uma breve descrição para ajudar você a identificar este
+                  currículo.
                 </FormDescription>
                 <FormMessage />
               </FormItem>

@@ -58,7 +58,7 @@ export function GenerateResumeDescriptionWorkExperienceButton({
     <>
       <Button variant="outline" type="button" onClick={handleClick}>
         <WandSparklesIcon className="size-4" />
-        Smart fill (AI)
+        Preenchimento inteligente (AI)
       </Button>
       <InputDialog
         open={showInputDialog}
@@ -99,8 +99,8 @@ function InputDialog({
     } catch (error) {
       // console.error("Error generating work experience description:", error);
 
-      toast.error("Failed to generate work experience description.", {
-        description: "Something went wrong. Please try again.",
+      toast.error("Falha ao gerar a descrição da experiência profissional.", {
+        description: "Algo deu errado. Por favor, tente novamente.",
       });
     } finally {
       onOpenChange(false);
@@ -111,10 +111,10 @@ function InputDialog({
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="sm:max-w-106.25">
         <DialogHeader>
-          <DialogTitle>Generate Work Experience Description</DialogTitle>
+          <DialogTitle>Gerar Descrição de Experiência Profissional</DialogTitle>
           <DialogDescription>
-            Describe this work experience and the AI will generate an optimized
-            entry for you.
+            Descreva esta experiência profissional e a IA irá gerar uma entrada
+            otimizada para você.
           </DialogDescription>
         </DialogHeader>
         <Form {...form}>
@@ -124,23 +124,23 @@ function InputDialog({
               name="description"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Description</FormLabel>
+                  <FormLabel>Descrição</FormLabel>
                   <FormControl>
                     <Textarea
                       {...field}
-                      placeholder={`E.g. "from nov 2019 to dec 2020 I worked at google as a software engineer, my tasks were: ..."`}
+                      placeholder="Ex: Trabalhei como desenvolvedor frontend na Empresa X, onde fui responsável por..."
                       autoFocus
                     />
                   </FormControl>
                   <FormDescription>
-                    Describe this work experience.
+                    Descreva esta experiência profissional.
                   </FormDescription>
                   <FormMessage />
                 </FormItem>
               )}
             />
             <LoadingButton type="submit" loading={form.formState.isSubmitting}>
-              Generate
+              Gerar
             </LoadingButton>
           </form>
         </Form>

@@ -42,7 +42,7 @@ export function Navbar() {
           >
             <UserButton.MenuItems>
               <UserButton.Link
-                label="Billing"
+                label="Assinatura"
                 labelIcon={<CreditCard className="size-4" />}
                 href="/billing"
               />

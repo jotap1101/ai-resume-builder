@@ -92,9 +92,9 @@ export function EducationForm({ resumeData, setResumeData }: EditorFormProps) {
   return (
     <div className="mx-auto max-w-xl space-y-6">
       <div className="space-y-1.5 text-center">
-        <h2 className="text-2xl font-semibold">Education</h2>
+        <h2 className="text-2xl font-semibold">Formações acadêmicas</h2>
         <p className="text-muted-foreground text-sm">
-          Add as many educations as you like.
+          Adicione quantas formações acadêmicas desejar.
         </p>
       </div>
       <Form {...form}>
@@ -132,7 +132,7 @@ export function EducationForm({ resumeData, setResumeData }: EditorFormProps) {
                 })
               }
             >
-              Add Education
+              Adicionar formação
             </Button>
           </div>
         </form>
@@ -173,7 +173,7 @@ function EducationField({ id, form, index, remove }: EducationProps) {
       style={style}
     >
       <div className="flex justify-between gap-2">
-        <span className="font-semibold">Education {index + 1}</span>
+        <span className="font-semibold">Formação acadêmica {index + 1}</span>
         <GripHorizontal
           className="text-muted-foreground size-5 cursor-grab focus:outline-none"
           {...attributes}
@@ -185,15 +185,15 @@ function EducationField({ id, form, index, remove }: EducationProps) {
         name={`educations.${index}.degree`}
         render={({ field }) => (
           <FormItem>
-            <FormLabel>Degree</FormLabel>
+            <FormLabel>Curso</FormLabel>
             <FormControl>
               <Input
-                placeholder="Bachelor of Science in Computer Science"
+                placeholder="Bacharelado em Ciência da Computação"
                 {...field}
                 autoFocus
               />
             </FormControl>
-            <FormDescription>The degree you earned.</FormDescription>
+            <FormDescription>O nome do seu curso.</FormDescription>
             <FormMessage />
           </FormItem>
         )}
@@ -203,11 +203,14 @@ function EducationField({ id, form, index, remove }: EducationProps) {
         name={`educations.${index}.school`}
         render={({ field }) => (
           <FormItem>
-            <FormLabel>School</FormLabel>
+            <FormLabel>Instituição</FormLabel>
             <FormControl>
-              <Input placeholder="University of Example" {...field} />
+              <Input
+                placeholder="IFSULDEMINAS - Campus Muzambinho"
+                {...field}
+              />
             </FormControl>
-            <FormDescription>The school you attended.</FormDescription>
+            <FormDescription>A instituição que você frequentou.</FormDescription>
             <FormMessage />
           </FormItem>
         )}
@@ -221,12 +224,12 @@ function EducationField({ id, form, index, remove }: EducationProps) {
 
             return (
               <FormItem>
-                <FormLabel>Start date</FormLabel>
+                <FormLabel>Data de início</FormLabel>
                 <FormControl>
                   <Input type="date" {...rest} value={value?.slice(0, 10)} />
                 </FormControl>
                 <FormDescription>
-                  The date you started studying.
+                  A data em que você começou a estudar.
                 </FormDescription>
                 <FormMessage />
               </FormItem>
@@ -241,13 +244,13 @@ function EducationField({ id, form, index, remove }: EducationProps) {
 
             return (
               <FormItem>
-                <FormLabel>End date</FormLabel>
+                <FormLabel>Data de término</FormLabel>
                 <FormControl>
                   <Input type="date" {...rest} value={value?.slice(0, 10)} />
                 </FormControl>
                 <FormDescription>
-                  Leave <span className="font-semibold">end date</span> empty if
-                  you are currently studying here.
+                  Deixe a <span className="font-semibold">data de término</span>{" "}
+                  vazio se você ainda estiver estudando aqui.
                 </FormDescription>
                 <FormMessage />
               </FormItem>
@@ -256,7 +259,7 @@ function EducationField({ id, form, index, remove }: EducationProps) {
         />
       </div>
       <Button variant="destructive" type="button" onClick={() => remove(index)}>
-        Remove
+        Remover
       </Button>
     </div>
   );

@@ -35,7 +35,7 @@ export function PremiumModal() {
     } catch (error) {
       // console.error(error);
 
-      toast.error("Something went wrong. Please try again.");
+      toast.error("Ocorreu um problema. Por favor, tente novamente.");
     } finally {
       setLoading(false);
     }
@@ -52,10 +52,10 @@ export function PremiumModal() {
     >
       <DialogContent className="max-w-2xl">
         <DialogHeader>
-          <DialogTitle>Resume Builder AI Premium</DialogTitle>
+          <DialogTitle>AI Resume Builder Premium</DialogTitle>
         </DialogHeader>
         <div className="space-y-6">
-          <p>Get a premium subscription to unlock more features.</p>
+          <p>Adquira uma assinatura Premium para desbloquear mais recursos.</p>
           <div className="flex">
             <div className="flex w-1/2 flex-col space-y-5">
               <h3 className="text-center text-lg font-bold">Premium</h3>
@@ -75,7 +75,7 @@ export function PremiumModal() {
                 }
                 disabled={loading}
               >
-                Get Premium
+                Obter Premium
               </Button>
             </div>
             <div className="mx-6 border-l" />
@@ -100,7 +100,7 @@ export function PremiumModal() {
                 }
                 disabled={loading}
               >
-                Get Premium Plus
+                Obter Premium Plus
               </Button>
             </div>
           </div>

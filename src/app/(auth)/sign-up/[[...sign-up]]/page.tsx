@@ -2,8 +2,8 @@ import { SignUp } from "@clerk/nextjs";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Sign Up",
-  description: "Create an account",
+  title: "Criar conta",
+  description: "Crie uma conta para começar a usar o AI Resume Builder.",
 };
 
 export default function Page() {

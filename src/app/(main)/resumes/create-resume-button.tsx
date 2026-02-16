@@ -10,9 +10,7 @@ interface CreateResumeButtonProps {
   canCreate: boolean;
 }
 
-export function CreateResumeButton({
-  canCreate,
-}: CreateResumeButtonProps) {
+export function CreateResumeButton({ canCreate }: CreateResumeButtonProps) {
   const premiumModal = usePremiumModal();
 
   if (canCreate) {
@@ -20,7 +18,7 @@ export function CreateResumeButton({
       <Button asChild className="mx-auto flex w-fit gap-2">
         <Link href="/editor">
           <PlusSquare className="size-5" />
-          New resume
+          Novo currículo
         </Link>
       </Button>
     );
@@ -32,7 +30,7 @@ export function CreateResumeButton({
       className="mx-auto flex w-fit gap-2"
     >
       <PlusSquare className="size-5" />
-      New resume
+      Novo currículo (Premium)
     </Button>
   );
 }

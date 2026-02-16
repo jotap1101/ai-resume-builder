@@ -10,7 +10,7 @@ export async function createCheckoutSession(priceId: string) {
   const user = await currentUser();
 
   if (!user) {
-    throw new Error("Unauthorized");
+    throw new Error("Não autorizado");
   }
 
   let stripeCustomerId = user.privateMetadata.stripeCustomerId as
@@ -67,7 +67,7 @@ export async function createCheckoutSession(priceId: string) {
     },
     custom_text: {
       terms_of_service_acceptance: {
-        message: `I have read AI Resume Builder's [terms of service](${env.NEXT_PUBLIC_BASE_URL}/tos) and agree to them.`,
+        message: `Li e concordo com os [termos de serviço](${env.NEXT_PUBLIC_BASE_URL}/tos) do AI Resume Builder.`,
       },
     },
     consent_collection: {
@@ -76,7 +76,7 @@ export async function createCheckoutSession(priceId: string) {
   });
 
   if (!session.url) {
-    throw new Error("Failed to create checkout session");
+    throw new Error("Falha ao criar sessão de checkout");
   }
 
   return session.url;

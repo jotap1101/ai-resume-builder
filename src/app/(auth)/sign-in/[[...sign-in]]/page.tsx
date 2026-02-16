@@ -2,8 +2,8 @@ import { SignIn } from "@clerk/nextjs";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Sign In",
-  description: "Sign in to your account",
+  title: "Entrar",
+  description: "Entre na sua conta.",
 };
 
 export default function Page() {

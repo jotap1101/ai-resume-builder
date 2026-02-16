@@ -35,7 +35,7 @@ export function Footer({
           isSaving && "opacity-100",
         )}
       >
-        Saving...
+        Salvando...
       </p>
       <div className="mx-auto flex max-w-7xl flex-wrap justify-between gap-3">
         <div className="flex items-center gap-3">
@@ -46,13 +46,13 @@ export function Footer({
             }
             disabled={!previousStep}
           >
-            Previous
+            Anterior
           </Button>
           <Button
             onClick={nextStep ? () => setCurrentStep(nextStep) : undefined}
             disabled={!nextStep}
           >
-            Next
+            Próximo
           </Button>
         </div>
         <p
@@ -61,7 +61,7 @@ export function Footer({
             isSaving && "opacity-100",
           )}
         >
-          Saving...
+          Salvando...
         </p>
         <div className="flex items-center gap-3">
           <Button
@@ -76,7 +76,7 @@ export function Footer({
             {showSmResumePreview ? <PenLineIcon /> : <FileUserIcon />}
           </Button>
           <Button variant="secondary" asChild>
-            <Link href="/resumes">Close</Link>
+            <Link href="/resumes">Fechar</Link>
           </Button>
         </div>
       </div>

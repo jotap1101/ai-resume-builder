@@ -2,6 +2,7 @@
 
 import { auth } from "@clerk/nextjs/server";
 import { ThinkingLevel } from "@google/genai";
+import { toast } from "sonner";
 
 import { ai } from "@/lib/gemini";
 import { canUseAITools } from "@/lib/permissions";
@@ -18,52 +19,52 @@ export async function generateResumeSummary(input: GenerateResumeSummaryInput) {
   const { userId } = await auth();
 
   if (!userId) {
-    throw new Error("Unauthorized");
+    throw new Error("Não autorizado");
   }
 
   const subscriptionLevel = await getUserSubscriptionLevel(userId);
 
   if (!canUseAITools(subscriptionLevel)) {
-    throw new Error("Upgrade your subscription to use this feature");
+    throw new Error("Atualize sua assinatura para usar este recurso");
   }
 
   const { jobTitle, workExperiences, educations, skills } =
     generateResumeSummarySchema.parse(input);
 
   const systemMessage = `
-    You are a job resume generator AI. Your task is to write a professional introduction summary for a resume given the user's provided data.
-    Only return the summary and do not include any other information in the response. Keep it concise and professional.
+    Você é uma IA geradora de currículos profissionais. Sua tarefa é escrever um resumo de apresentação profissional para um currículo com base nos dados fornecidos pelo usuário.
+    Retorne apenas o resumo e não inclua nenhuma outra informação na resposta. Mantenha-o conciso e profissional.
   `;
 
   const userMessage = `
-    Please generate a professional resume summary from this data:
+    Por favor, gere um resumo profissional de currículo a partir destes dados:
 
-    Job title: ${jobTitle || "N/A"}
+    Cargo: ${jobTitle || "N/A"}
 
-    Work experience:
+    Experiência profissional:
     
     ${workExperiences
       ?.map(
         (experience) => `
-        Position: ${experience.position || "N/A"} at ${experience.company || "N/A"} from ${experience.startDate || "N/A"} to ${experience.endDate || "Present"}
+        Posição: ${experience.position || "N/A"} na ${experience.company || "N/A"} de ${experience.startDate || "N/A"} até ${experience.endDate || "Presente"}
 
-        Description:
+        Descrição:
         ${experience.description || "N/A"}
         `,
       )
       .join("\n\n")}
 
-    Education:
+    Educação:
     
     ${educations
       ?.map(
         (education) => `
-        Degree: ${education.degree || "N/A"} at ${education.school || "N/A"} from ${education.startDate || "N/A"} to ${education.endDate || "N/A"}
+        Formação: ${education.degree || "N/A"} em ${education.school || "N/A"} de ${education.startDate || "N/A"} até ${education.endDate || "N/A"}
         `,
       )
       .join("\n\n")}
 
-    Skills:
+    Habilidades:
     
     ${skills}
   `;
@@ -91,17 +92,28 @@ export async function generateResumeSummary(input: GenerateResumeSummaryInput) {
     });
 
     if (!response.text) {
-      throw new Error("No text returned from Gemini API");
+      throw new Error("Nenhum texto retornado da API do Gemini");
     }
 
     return response.text;
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
   } catch (error) {
     // console.error("Error generating resume summary:", error);
 
-    throw new Error("Failed to generate resume summary");
+    if (
+      error instanceof Error &&
+      (error.message.includes("fetch failed") ||
+        error.message.includes("timeout"))
+    ) {
+      throw new Error(
+        "Tempo limite excedido ao conectar com a API. Verifique sua conexão e tente novamente.",
+      );
+    }
+
+    throw new Error("Falha ao gerar resumo do currículo");
   } finally {
     // console.log("Finished generating resume summary");
+
+    toast.dismiss();
   }
 }
 
@@ -111,31 +123,31 @@ export async function generateResumeDescriptionWorkExperience(
   const { userId } = await auth();
 
   if (!userId) {
-    throw new Error("Unauthorized");
+    throw new Error("Não autorizado");
   }
 
   const subscriptionLevel = await getUserSubscriptionLevel(userId);
 
   if (!canUseAITools(subscriptionLevel)) {
-    throw new Error("Upgrade your subscription to use this feature");
+    throw new Error("Atualize sua assinatura para usar este recurso");
   }
 
   const { description } =
     generateResumeDescriptionWorkExperienceSchema.parse(input);
 
   const systemMessage = `
-    You are a job resume generator AI. Your task is to generate a single work experience entry based on the user input.
-    Your response must adhere to the following structure. You can omit fields if they can't be inferred from the provided data, but don't add any new ones.
+    Você é uma IA geradora de currículos profissionais. Sua tarefa é gerar uma única entrada de experiência profissional com base na entrada do usuário.
+    Sua resposta deve seguir a seguinte estrutura. Você pode omitir campos se eles não puderem ser inferidos dos dados fornecidos, mas não adicione novos campos.
 
-    Job title: <job title>
-    Company: <company name>
-    Start date: <format: YYYY-MM-DD> (only if provided)
-    End date: <format: YYYY-MM-DD> (only if provided)
-    Description: <an optimized description in bullet format, might be inferred from the job title>
+    Cargo: <cargo>
+    Empresa: <nome da empresa>
+    Data de início: <formato: YYYY-MM-DD> (apenas se fornecido)
+    Data de término: <formato: YYYY-MM-DD> (apenas se fornecido)
+    Descrição: <uma descrição otimizada em formato de marcadores, pode ser inferida a partir do cargo>
   `;
 
   const userMessage = `
-    Please provide a work experience entry from this description:
+    Por favor, forneça uma entrada de experiência profissional a partir desta descrição:
 
     ${description}
   `;
@@ -165,24 +177,37 @@ export async function generateResumeDescriptionWorkExperience(
     // console.log(response);
 
     if (!response.text) {
-      throw new Error("No text returned from Gemini API");
+      throw new Error("Nenhum texto retornado da API do Gemini");
     }
 
     return {
-      position: response.text.match(/Job title: (.*)/)?.[1] || "",
-      company: response.text.match(/Company: (.*)/)?.[1] || "",
+      position: response.text.match(/Cargo: (.*)/)?.[1] || "",
+      company: response.text.match(/Empresa: (.*)/)?.[1] || "",
       description: (
-        response.text.match(/Description:([\s\S]*)/)?.[1] || ""
+        response.text.match(/Descrição:([\s\S]*)/)?.[1] || ""
       ).trim(),
-      startDate: response.text.match(/Start date: (\d{4}-\d{2}-\d{2})/)?.[1],
-      endDate: response.text.match(/End date: (\d{4}-\d{2}-\d{2})/)?.[1],
+      startDate: response.text.match(
+        /Data de início: (\d{4}-\d{2}-\d{2})/,
+      )?.[1],
+      endDate: response.text.match(/Data de término: (\d{4}-\d{2}-\d{2})/)?.[1],
     } satisfies WorkExperienceItem;
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
   } catch (error) {
     // console.error("Error generating work experience description:", error);
 
-    throw new Error("Failed to generate work experience description");
+    if (
+      error instanceof Error &&
+      (error.message.includes("fetch failed") ||
+        error.message.includes("timeout"))
+    ) {
+      throw new Error(
+        "Tempo limite excedido ao conectar com a API. Verifique sua conexão e tente novamente.",
+      );
+    }
+
+    throw new Error("Falha ao gerar descrição da experiência profissional");
   } finally {
     // console.log("Finished generating work experience description");
+
+    toast.dismiss();
   }
 }

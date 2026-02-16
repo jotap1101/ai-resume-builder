@@ -21,7 +21,9 @@ export function ManageSubscriptionButton() {
     } catch (error) {
       // console.error(error);
 
-      toast.error("Failed to redirect to customer portal. Please try again.");
+      toast.error(
+        "Falha ao redirecionar para o portal do cliente. Por favor, tente novamente.",
+      );
     } finally {
       setLoading(false);
     }
@@ -29,7 +31,7 @@ export function ManageSubscriptionButton() {
 
   return (
     <LoadingButton onClick={handleClick} loading={loading}>
-      Manage subscription
+      Gerenciar assinatura
     </LoadingButton>
   );
 }

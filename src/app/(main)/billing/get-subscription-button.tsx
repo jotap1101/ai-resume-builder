@@ -8,7 +8,7 @@ export function GetSubscriptionButton() {
 
   return (
     <Button onClick={() => premiumModal.setOpen(true)} variant="default">
-      Get Premium subscription
+      Obter assinatura Premium
     </Button>
   );
 }

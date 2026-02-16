@@ -12,32 +12,32 @@ export const steps: {
   key: string;
 }[] = [
   {
-    title: "General info",
+    title: "Informações gerais",
     component: GeneralInfoForm,
     key: "general-info",
   },
   {
-    title: "Personal info",
+    title: "Informações pessoais",
     component: PersonalInfoForm,
     key: "personal-info",
   },
   {
-    title: "Work experience",
+    title: "Experiências profissionais",
     component: WorkExperienceForm,
     key: "work-experience",
   },
   {
-    title: "Education",
+    title: "Formações acadêmicas",
     component: EducationForm,
     key: "education",
   },
   {
-    title: "Skills",
+    title: "Habilidades",
     component: SkillForm,
     key: "skills",
   },
   {
-    title: "Summary",
+    title: "Resumo",
     component: SummaryForm,
     key: "summary",
   },

@@ -46,10 +46,12 @@ export function ResumeEditor({ resumeToEdit }: ResumeEditorProps) {
   return (
     <div className="flex grow flex-col">
       <header className="space-y-1.5 border-b px-3 py-5 text-center">
-        <h1 className="text-2xl font-bold">Design your resume</h1>
+        <h1 className="text-2xl font-bold">
+          {resumeToEdit ? "Edite seu currículo" : "Crie seu currículo"}
+        </h1>
         <p className="text-muted-foreground text-sm">
-          Follow the steps below to create your resume. Your progress will be
-          saved automatically.
+          Siga as etapas abaixo para {resumeToEdit ? "editar" : "criar"} seu
+          currículo. Seu progresso será salvo automaticamente.
         </p>
       </header>
       <main className="relative grow">

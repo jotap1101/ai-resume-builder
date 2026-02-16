@@ -45,10 +45,10 @@ export function SummaryForm({ resumeData, setResumeData }: EditorFormProps) {
   return (
     <div className="mx-auto max-w-xl space-y-6">
       <div className="space-y-1.5 text-center">
-        <h2 className="text-2xl font-semibold">Professional summary</h2>
+        <h2 className="text-2xl font-semibold">Resumo</h2>
         <p className="text-muted-foreground text-sm">
-          Write a short introduction for your resume or let the AI generate one
-          from your entered data.
+          Escreva uma breve introdução para seu currículo ou deixe a IA gerar
+          uma a partir dos dados inseridos.
         </p>
       </div>
       <Form {...form}>
@@ -58,7 +58,7 @@ export function SummaryForm({ resumeData, setResumeData }: EditorFormProps) {
             name="summary"
             render={({ field }) => (
               <FormItem>
-                <FormLabel className="sr-only">Professional summary</FormLabel>
+                <FormLabel className="sr-only">Resumo</FormLabel>
                 <FormControl>
                   <Textarea
                     value={field.value}
@@ -70,12 +70,12 @@ export function SummaryForm({ resumeData, setResumeData }: EditorFormProps) {
                     }}
                     name={field.name}
                     ref={field.ref}
-                    placeholder="A brief, engaging text about yourself"
+                    placeholder="Ex: Desenvolvedor de software com 5 anos de experiência em desenvolvimento web, especializado em React e Node.js. Apaixonado por criar soluções eficientes e escaláveis."
                     rows={5}
                   />
                 </FormControl>
                 <FormDescription>
-                  A brief summary to highlight your key qualifications.
+                  Um resumo breve para destacar suas principais qualificações.
                 </FormDescription>
                 <FormMessage />
                 <GenerateResumeSummaryButton

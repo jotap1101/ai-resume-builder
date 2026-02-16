@@ -15,23 +15,24 @@ export default function Page() {
           className="mx-auto md:ms-0"
         />
         <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl">
-          Create the{" "}
+          Crie o{" "}
           <span className="inline-block bg-linear-to-r from-green-600 to-green-400 bg-clip-text text-transparent">
-            Perfect Resume
+            Currículo Perfeito
           </span>{" "}
-          in Minutes
+          em poucos minutos!
         </h1>
         <p className="text-lg text-gray-500">
-          Our <span className="font-bold">AI resume builder</span> helps you
-          design a professional resume, even if you&apos;re not very smart.
+          O <span className="font-bold">AI resume builder</span> ajuda você a
+          elaborar um currículo profissional, mesmo que não seja muito
+          inteligente.
         </p>
         <Button asChild size="lg" variant="default">
-          <Link href="/resumes">Get started</Link>
+          <Link href="/resumes">Comece agora</Link>
         </Button>
       </div>
       <div>
         <Image
-          src="/resume-preview.jpg"
+          src="/resume-test-01.jpg"
           alt="Resume preview"
           width={500}
           height={500}

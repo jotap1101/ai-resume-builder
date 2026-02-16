@@ -31,7 +31,7 @@ export function ColorPicker({ color, onChange }: ColorPickerProps) {
           size="icon"
           // className="bg-background/80 hover:bg-background/90 dark:bg-background/60 dark:hover:bg-background/80 h-8 w-8 shrink-0 rounded-md border-2 backdrop-blur-sm sm:h-10 sm:w-10"
           // aria-label="Choose color"
-          title="Change resume color"
+          title="Alterar cor do destaque do currículo"
           onClick={() => {
             if (!canUseCustomizations(subscriptionLevel)) {
               premiumModal.setOpen(true);

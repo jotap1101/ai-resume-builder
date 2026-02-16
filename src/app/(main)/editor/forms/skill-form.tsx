@@ -48,8 +48,10 @@ export function SkillForm({ resumeData, setResumeData }: EditorFormProps) {
   return (
     <div className="mx-auto max-w-xl space-y-6">
       <div className="space-y-1.5 text-center">
-        <h2 className="text-2xl font-semibold">Skills</h2>
-        <p className="text-muted-foreground text-sm">What are you good at?</p>
+        <h2 className="text-2xl font-semibold">Habilidades</h2>
+        <p className="text-muted-foreground text-sm">
+          Quais são suas habilidades?
+        </p>
       </div>
       <Form {...form}>
         <form className="space-y-3">
@@ -58,7 +60,7 @@ export function SkillForm({ resumeData, setResumeData }: EditorFormProps) {
             name="skills"
             render={({ field }) => (
               <FormItem>
-                <FormLabel className="sr-only">Skills</FormLabel>
+                <FormLabel className="sr-only">Habilidades</FormLabel>
                 <FormControl>
                   <Textarea
                     value={field.value?.join(",") || ""}
@@ -80,11 +82,11 @@ export function SkillForm({ resumeData, setResumeData }: EditorFormProps) {
                     }}
                     name={field.name}
                     ref={field.ref}
-                    placeholder="e.g. React.js, Node.js, graphic design, ..."
+                    placeholder="Ex: React.js, Node.js, TypeScript, ..."
                   />
                 </FormControl>
                 <FormDescription>
-                  Separate each skill with a comma.
+                  Separe cada habilidade com uma vírgula.
                 </FormDescription>
                 <FormMessage />
               </FormItem>

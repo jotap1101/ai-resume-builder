@@ -62,8 +62,8 @@ export function useAutoSaveResume(resumeData: ResumeValues) {
 
         // console.error(error);
 
-        const toastId = toast.error("Failed to auto-save resume.", {
-          description: "Please try saving manually.",
+        const toastId = toast.error("Falha ao salvar automaticamente.", {
+          description: "Por favor, tente salvar manualmente.",
           action: (
             <Button
               variant="secondary"

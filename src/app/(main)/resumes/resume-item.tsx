@@ -56,8 +56,8 @@ export function ResumeItem({ resume }: ResumeItemProps) {
             <p className="line-clamp-2 text-sm">{resume.description}</p>
           )}
           <p className="text-muted-foreground text-xs">
-            {wasUpdated ? "Updated" : "Created"} on{" "}
-            {formatDate(resume.updatedAt, "MMM d, yyyy h:mm a")}
+            {wasUpdated ? "Atualizado" : "Criado"} em{" "}
+            {formatDate(resume.updatedAt, "dd/MM/yyyy 'às' HH:mm")}
           </p>
         </Link>
         <Link
@@ -103,14 +103,14 @@ function MoreMenu({ resumeId, onPrintClick }: MoreMenuProps) {
             onClick={() => setShowDeleteConfirmation(true)}
           >
             <Trash2 className="size-4" />
-            Delete
+            Excluir
           </DropdownMenuItem>
           <DropdownMenuItem
             className="flex items-center gap-2"
             onClick={onPrintClick}
           >
             <Printer className="size-4" />
-            Print
+            Imprimir
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
@@ -145,7 +145,9 @@ function DeleteConfirmationDialog({
       } catch (error) {
         // console.error(error);
 
-        toast.error("Failed to delete resume. Please try again.");
+        toast.error(
+          "Falha ao excluir o currículo. Por favor, tente novamente.",
+        );
       }
     });
   }
@@ -154,10 +156,10 @@ function DeleteConfirmationDialog({
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Delete resume?</DialogTitle>
+          <DialogTitle>Excluir currículo?</DialogTitle>
           <DialogDescription>
-            This will permanently delete this resume. This action cannot be
-            undone.
+            Isso excluirá permanentemente este currículo. Esta ação não pode ser
+            desfeita.
           </DialogDescription>
         </DialogHeader>
         <DialogFooter>
@@ -166,10 +168,10 @@ function DeleteConfirmationDialog({
             onClick={handleDelete}
             loading={isPending}
           >
-            Delete
+            Excluir
           </LoadingButton>
           <Button variant="secondary" onClick={() => onOpenChange(false)}>
-            Cancel
+            Cancelar
           </Button>
         </DialogFooter>
       </DialogContent>
